@@ -16,16 +16,16 @@ import './styles.css';
 const App = () => (
   <BrowserRouter>
     <div>
-      <Header/>
+      <Header />
       <div className='container'>
-      <Switch>
-        <Route exact path='/' component={ Home }/>
+        <Switch>
+          <Route exact path='/' component={Home} />
 
-        <Route exact path='/about' component={ About }/>
-        <Route exact path='/test' component={ Test }/>
+          <Route exact path='/about' component={About} />
+          <Route exact path='/test' component={Test} />
 
-        <Redirect to='/' />
-      </Switch>
+          <Redirect to='/' />
+        </Switch>
       </div>
     </div>
   </BrowserRouter>
