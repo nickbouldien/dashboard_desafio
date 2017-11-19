@@ -18,6 +18,10 @@ if (process.env.NODE_ENV === 'production') {
   ROOT_URL = 'http://localhost:3090/';
 }
 
+const WEATHER_KEY = process.env.WEATHER_KEY || '2c6d4627538f4d09bf0bf753cab3e0d3';
+
+// console.log('the weather key: ', WEATHER_KEY, 'REACT_APP_WEATHER_KEY is: ', process.env.REACT_APP_WEATHER_KEY);
+
 // console.log('actioncreators user ', user && JSON.parse(user) && JSON.parse(user).email);
 // let userEmail;
 // try {
@@ -43,18 +47,36 @@ export function fetchWeather(weather) {
   return { type: FETCH_WEATHER, payload: weather };
 }
 
-export function getWeather(query) {
-  console.log('getWeather called: ', query);
+
+export function getWeather(queryCity) {
+
+  const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}`;
+
+  console.log('getWeather called: ', WEATHER_URL);
+
   return (dispatch) => {
-      axios.get(`${ROOT_URL}my-maps`)
-      .then(response => {
-        console.log('the weather response ', response.data);
-        // if response.status === 200 {  } // .ok
-        dispatch(fetchWeather(response.data));
-      })
-      .catch(err => {
-        console.error("Error getting locations: ", err);  //eslint-disable-line no-console
-      })
+
+    axios.get(WEATHER_URL)
+    .then((res) => {
+      // console.log('response is: ', res.data);
+      console.log('response111 is: ', res.data.data[0]);
+
+        dispatch(fetchWeather(res.data.data[0]));
+    })
+    .catch((error) => {
+        // dispatch(applicationError(error));
+      console.error("Error getting weather: ", error);  //eslint-disable-line no-console
+    });
+
+      // axios.get(`${WEATHER_URL}${query}`)
+      // .then(response => {
+      //   console.log('the weather response ', response.data);
+      //   // if response.status === 200 {  } // .ok
+      //   dispatch(fetchWeather(response.data));
+      // })
+      // .catch(err => {
+      //   console.error("Error getting locations: ", err);  //eslint-disable-line no-console
+      // })
     }
 }
 

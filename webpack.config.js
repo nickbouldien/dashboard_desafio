@@ -39,6 +39,10 @@ const config = {
     //     'NODE_ENV': JSON.stringify('production')
     //   }
     // })
+
+    // TODO: add this to hide env vars
+    // https://www.npmjs.com/package/dotenv-webpack
+
   ],
   module: {
     rules: [

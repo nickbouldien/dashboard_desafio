@@ -36,19 +36,21 @@ class Test extends Component {
 
   callSwapi(changeCity) {
 
-    let query = `san diego`;
+    console.log('the props are: ', this.props);
 
+    let query = `memphis`;
+    this.props.getWeatherForCity(query);
     // fetch(`https://www.metaweather.com/api/location/search/?query=${query}`)
-    axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22nome%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys')
-    .then((res) => {
-      console.log('ressponse is: ', res);
-      this.setState({
-        weather: res.data
-       });
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+    // axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22nome%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys')
+    // .then((res) => {
+    //   console.log('ressponse is: ', res);
+    //   this.setState({
+    //     weather: res.data
+    //    });
+    // })
+    // .catch(function (error) {
+    //   console.error(error);
+    // });
   }
 
   onWookieeVersionClick() {
@@ -67,27 +69,20 @@ class Test extends Component {
 
     return (
       <div id='test-div'>
-        <h1>Test: (with characters 1-4)</h1>
+        <h1>Test</h1>
 
         {/* <button onClick={this.refresh}>Call Swapi again</button> */}
 
-        <h3>Response from swapi for character {this.state.randomNum}:</h3>
-        <pre>
-          <code>
-            {JSON.stringify(this.state.weather, null, 4)}
-          </code>
-        </pre>
-
 
         {/* eslint-disable react/jsx-indent */}
-      { this.state.data && character && (
+      {(
         <div>
           {/* <Image src={`/images/${character}.png`} responsive thumbnail alt={`Image for ${character}`} /> */}
 
-          <h3>Response from swapi for character {this.state.randomNum}:</h3>
+          <h3>Response from swapi for city: {this.props.city || 'N/A'} :</h3>
           <pre>
               <code>
-                {JSON.stringify(this.state.weather, null, 4)}
+                {JSON.stringify(this.props.weather, null, 4)}
               </code>
             </pre>
 
@@ -100,16 +95,16 @@ class Test extends Component {
   }
 }
 
-
-// const mapStateToProps = (state, ownProps) => ({
-//   searchTerm: state.searchTerm
-//   // locations: state.locations
-// });
+const mapStateToProps = (state, ownProps) => ({
+  weather: state.weatherReducer.weather,
+  city: state.weatherReducer.weather.city_name
+  // locations: state.locations
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  getWeatherForCity(event) {
-    dispatch(getWeather(event.target.value));
+  getWeatherForCity(query) {
+    dispatch(getWeather(query));
   }
 });
 
-export default connect(/*mapStateToProps, */mapDispatchToProps)(Test);
+export default connect(mapStateToProps, mapDispatchToProps)(Test);
