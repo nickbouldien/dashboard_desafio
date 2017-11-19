@@ -13,7 +13,7 @@ const Home = () => (
       <ListGroupItem><Link to='about'>about</Link></ListGroupItem>
       <ListGroupItem><Link to='test'>test route</Link></ListGroupItem>
 
-      <ListGroupItem><a href='https://flow.org/en/docs/react/components/' target="_blank">flow</a></ListGroupItem>
+      <ListGroupItem><a href='https://flow.org/en/docs/react/components/' target='_blank'>flow</a></ListGroupItem>
 
     </ListGroup>
   </div>

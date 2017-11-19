@@ -1,8 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { Image } from 'react-bootstrap';
 import Spinner1 from '../components/Spinner1';
+import { getWeather } from '../actions/actionCreators';
 
 class Test extends Component {
   constructor() {
@@ -47,15 +49,6 @@ class Test extends Component {
     .catch(function (error) {
       console.error(error);
     });
-    // below is prepping for async/await
-    // try {
-    //   const results = await axios.get(`https://swapi.co/api/${this.state.searchTerm}`)
-    //   console.log('The fetch Results are: ', results);
-    // } catch (err) {
-    //   console.error("Error fetching: ", err);
-    // }
-
-    // https://medium.com/front-end-hacking/async-await-with-react-lifecycle-methods-802e7760d802
   }
 
   onWookieeVersionClick() {
@@ -107,4 +100,16 @@ class Test extends Component {
   }
 }
 
-export default Test;
+
+// const mapStateToProps = (state, ownProps) => ({
+//   searchTerm: state.searchTerm
+//   // locations: state.locations
+// });
+
+const mapDispatchToProps = (dispatch) => ({
+  getWeatherForCity(event) {
+    dispatch(getWeather(event.target.value));
+  }
+});
+
+export default connect(/*mapStateToProps, */mapDispatchToProps)(Test);
