@@ -48,9 +48,9 @@ export function fetchWeather(weather) {
 }
 
 
-export function getWeather(queryCity) {
+export function getWeather(queryCity, units="I") {
 
-  const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}`;
+  const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}&units=${units}`;
 
   console.log('getWeather called: ', WEATHER_URL);
 

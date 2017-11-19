@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Image } from 'react-bootstrap';
-import Spinner1 from '../components/Spinner1';
+import PropTypes from 'prop-types';
 import { getWeather } from '../actions/actionCreators';
+import Spinner1 from '../components/Spinner1';
+import WeatherCard from '../components/WeatherCard';
 
 class Test extends Component {
   constructor() {
@@ -17,16 +19,16 @@ class Test extends Component {
     }
     this.onWookieeVersionClick = this.onWookieeVersionClick.bind(this);
     // this.refresh = this.refresh.bind(this);
-    this.callSwapi = this.callSwapi.bind(this);
+    this.fetchWeatherData = this.fetchWeatherData.bind(this);
   }
 
   componentDidMount() {
-    this.callSwapi(false);
+    this.fetchWeatherData(false);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.wookieFormat !== this.state.wookieFormat) {
-      this.callSwapi(true); // flips to/from wookie version
+      this.fetchWeatherData(true); // flips to/from wookie version
     }
   }
 
@@ -34,7 +36,7 @@ class Test extends Component {
   //   window.location.reload();
   // }
 
-  callSwapi(changeCity) {
+  fetchWeatherData(changeCity) {
 
     console.log('the props are: ', this.props);
 
@@ -63,9 +65,7 @@ class Test extends Component {
 
 
   render() {
-    let character = ""; // this.state.data && (this.state.data.name || this.state.data.whrascwo);
-    const { data } = this.state;
-
+    const { city, weather } = this.props;
 
     return (
       <div id='test-div'>
@@ -73,18 +73,19 @@ class Test extends Component {
 
         {/* <button onClick={this.refresh}>Call Swapi again</button> */}
 
+        { weather && city && <WeatherCard weather={weather} city={city} /> }
 
         {/* eslint-disable react/jsx-indent */}
       {(
         <div>
           {/* <Image src={`/images/${character}.png`} responsive thumbnail alt={`Image for ${character}`} /> */}
 
-          <h3>Response from swapi for city: {this.props.city || 'N/A'} :</h3>
+          <h3>Response from swapi for city: {city || 'N/A'} :</h3>
           <pre>
-              <code>
-                {JSON.stringify(this.props.weather, null, 4)}
-              </code>
-            </pre>
+            <code>
+              {JSON.stringify(weather, null, 4)}
+            </code>
+          </pre>
 
         </div>
       ) || <Spinner1 />
@@ -94,12 +95,26 @@ class Test extends Component {
     )
   }
 }
+// optionalObjectWithShape: PropTypes.shape({
+//   color: PropTypes.string,
+//   fontSize: PropTypes.number
+// })
+
+Test.propTypes = {
+  weather: PropTypes.object,
+  city: PropTypes.string,
+  getWeatherForCity: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state, ownProps) => ({
   weather: state.weatherReducer.weather,
   city: state.weatherReducer.weather.city_name
   // locations: state.locations
 });
+
+// const mapDispatchToProps = dispatch => {
+//     return { listItems: () => { dispatch(listItems()) } }
+// }
 
 const mapDispatchToProps = (dispatch) => ({
   getWeatherForCity(query) {
