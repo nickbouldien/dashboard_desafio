@@ -4,9 +4,11 @@ import { combineReducers } from 'redux';
 // import { searchTerm, locations } from './map_reducer';
 // import * as reducers from './reducers'
 import weatherReducer from './weatherReducer';
+import inputReducer from './inputReducer';
 
 const rootReducer = combineReducers({
-  weatherReducer
+  weatherReducer,
+  inputReducer
   // auth: authReducer,
   // searchTerm,
   // locations

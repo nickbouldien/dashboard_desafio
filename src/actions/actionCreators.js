@@ -1,13 +1,13 @@
 import axios from 'axios';
 import {
   FETCH_WEATHER,
-  APP_ERROR
+  APP_ERROR,
+  SET_SEARCH_TERM
   // AUTH_USER,
   // UNAUTH_USER,
   // AUTH_ERROR,
   // FETCH_LOCATIONS,
   // ADD_LOCATION,
-  // SET_SEARCH_TERM
 } from './actionTypes';
 
 let ROOT_URL;
@@ -52,44 +52,36 @@ export function getWeather(queryCity, units="I") {
 
   const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}&units=${units}`;
 
-  console.log('getWeather called: ', WEATHER_URL);
+  // console.log('getWeather called: ', WEATHER_URL);
 
   return (dispatch) => {
-
     axios.get(WEATHER_URL)
     .then((res) => {
-      // console.log('response is: ', res.data);
       console.log('response111 is: ', res.data.data[0]);
 
-        dispatch(fetchWeather(res.data.data[0]));
+      const response = res && res.data && res.data.data && res.data.data[0];
+      if (response) {
+        dispatch(fetchWeather(response));
+      } else {
+        // nb???
+        throw new Error("not a valid city")
+      }
     })
     .catch((error) => {
-        // dispatch(applicationError(error));
+      dispatch(applicationError(error));
       console.error("Error getting weather: ", error);  //eslint-disable-line no-console
     });
-
-      // axios.get(`${WEATHER_URL}${query}`)
-      // .then(response => {
-      //   console.log('the weather response ', response.data);
-      //   // if response.status === 200 {  } // .ok
-      //   dispatch(fetchWeather(response.data));
-      // })
-      // .catch(err => {
-      //   console.error("Error getting locations: ", err);  //eslint-disable-line no-console
-      // })
-    }
+  }
 }
 
-
-
+export function setSearchTerm(searchTerm) {
+  // console.log('setSearchTerm: ', searchTerm);
+  return { type: SET_SEARCH_TERM, payload: searchTerm };
+}
 
 /*
       MAP actions
 */
-// export function setSearchTerm(searchTerm) {
-//   console.log('setSearchTerm: ', searchTerm);
-//   return { type: SET_SEARCH_TERM, payload: searchTerm };
-// }
 //
 //
 // export function addedLocation() {

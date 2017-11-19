@@ -20,4 +20,5 @@ WeatherCard.propTypes = {
   weather: PropTypes.object.isRequired,
   city: PropTypes.string.isRequired,
 };
+
 export default WeatherCard;

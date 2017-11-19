@@ -5,7 +5,7 @@ export const FETCH_WEATHER= 'FETCH_WEATHER';
 // const ADD_WIDGET = 'ADD_WIDGET';
 
 
-// export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
+export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 
 
 // export const DRAG = 'DRAG';

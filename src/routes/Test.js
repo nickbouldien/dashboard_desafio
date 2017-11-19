@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { getWeather } from '../actions/actionCreators';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
+import InputForm from '../components/InputForm';
 
 class Test extends Component {
   constructor() {
@@ -14,62 +15,46 @@ class Test extends Component {
     this.state = {
       wookieFormat: false,
       weather: null,
-      data: null,
-      randomNum: 0
+      data: null
     }
-    this.onWookieeVersionClick = this.onWookieeVersionClick.bind(this);
-    // this.refresh = this.refresh.bind(this);
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchWeatherData(false);
-  }
+  // componentDidMount() {
+  //   this.fetchWeatherData(false);
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.wookieFormat !== this.state.wookieFormat) {
-      this.fetchWeatherData(true); // flips to/from wookie version
-    }
-  }
-
-  // refresh() {
-  //   window.location.reload();
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.wookieFormat !== this.state.wookieFormat) {
+  //     this.fetchWeatherData(true); // flips to/from wookie version
+  //   }
   // }
 
   fetchWeatherData(changeCity) {
 
-    console.log('the props are: ', this.props);
-
-    let query = `memphis`;
+    // let query = `memphis`;
+    const query = this.props.searchTerm;
+    // console.log('the props are: ', this.props, 'searchTerm: ', query);
     this.props.getWeatherForCity(query);
-    // fetch(`https://www.metaweather.com/api/location/search/?query=${query}`)
-    // axios.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22nome%2C%20ak%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys')
-    // .then((res) => {
-    //   console.log('ressponse is: ', res);
-    //   this.setState({
-    //     weather: res.data
-    //    });
-    // })
-    // .catch(function (error) {
-    //   console.error(error);
-    // });
   }
-
-  onWookieeVersionClick() {
-    const currSetting = this.state.wookieFormat;
-    this.setState({
-      wookieFormat: !currSetting
-    });
-  }
-
 
 
   render() {
-    const { city, weather } = this.props;
-
+    const { city, weather, error } = this.props;
+    console.log(this.props);
     return (
       <div id='test-div'>
         <h1>Test</h1>
+
+        { error && (
+          <pre>
+            <code>
+              { error.toString() }
+            </code>
+          </pre>)
+        }
+
+        <InputForm submitFn={this.fetchWeatherData} type={"text"} />
 
         {/* <button onClick={this.refresh}>Call Swapi again</button> */}
 
@@ -103,13 +88,19 @@ class Test extends Component {
 Test.propTypes = {
   weather: PropTypes.object,
   city: PropTypes.string,
-  getWeatherForCity: PropTypes.func.isRequired
+  searchTerm: PropTypes.string,
+  getWeatherForCity: PropTypes.func.isRequired,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 };
 
 const mapStateToProps = (state, ownProps) => ({
   weather: state.weatherReducer.weather,
-  city: state.weatherReducer.weather.city_name
-  // locations: state.locations
+  city: state.weatherReducer.weather.city_name,
+  error: state.weatherReducer.error,
+  searchTerm: state.inputReducer.searchTerm
 });
 
 // const mapDispatchToProps = dispatch => {
