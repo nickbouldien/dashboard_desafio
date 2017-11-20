@@ -7,6 +7,7 @@ export const FETCH_WEATHER= 'FETCH_WEATHER';
 
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 
+export const FETCH_STOCK = 'FETCH_STOCK';
 
 // export const DRAG = 'DRAG';
 // export const DROP = 'DROP';

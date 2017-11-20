@@ -9,7 +9,7 @@ import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
 
-class Test extends Component {
+class Dashboard extends Component {
   constructor() {
     super()
     this.state = {
@@ -43,8 +43,8 @@ class Test extends Component {
     const { city, weather, error } = this.props;
     console.log(this.props);
     return (
-      <div id='test-div'>
-        <h1>Test</h1>
+      <div id='dashboard-div'>
+        <h1>Dashboard</h1>
 
         { error && (
           <pre>
@@ -85,7 +85,7 @@ class Test extends Component {
 //   fontSize: PropTypes.number
 // })
 
-Test.propTypes = {
+Dashboard.propTypes = {
   weather: PropTypes.object,
   city: PropTypes.string,
   searchTerm: PropTypes.string,
@@ -113,4 +113,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Test);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -11,7 +11,7 @@ const Home = () => (
     <ListGroup>
 
       <ListGroupItem><Link to='about'>about</Link></ListGroupItem>
-      <ListGroupItem><Link to='test'>test route</Link></ListGroupItem>
+      <ListGroupItem><Link to='dashboard'>dashboard route</Link></ListGroupItem>
 
       <ListGroupItem><a href='https://flow.org/en/docs/react/components/' target='_blank'>flow</a></ListGroupItem>
 

@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   FETCH_WEATHER,
   APP_ERROR,
-  SET_SEARCH_TERM
+  SET_SEARCH_TERM,
+  FETCH_STOCK
   // AUTH_USER,
   // UNAUTH_USER,
   // AUTH_ERROR,
@@ -39,6 +40,12 @@ export function applicationError(error) {
   }
 }
 
+export function setSearchTerm(searchTerm) {
+  // console.log('setSearchTerm: ', searchTerm);
+  return { type: SET_SEARCH_TERM, payload: searchTerm };
+}
+
+
 /*
       WEATHER actions
 */
@@ -47,13 +54,9 @@ export function fetchWeather(weather) {
   return { type: FETCH_WEATHER, payload: weather };
 }
 
-
 export function getWeather(queryCity, units="I") {
-
   const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}&units=${units}`;
-
   // console.log('getWeather called: ', WEATHER_URL);
-
   return (dispatch) => {
     axios.get(WEATHER_URL)
     .then((res) => {
@@ -74,9 +77,32 @@ export function getWeather(queryCity, units="I") {
   }
 }
 
-export function setSearchTerm(searchTerm) {
-  // console.log('setSearchTerm: ', searchTerm);
-  return { type: SET_SEARCH_TERM, payload: searchTerm };
+/*
+      STOCK actions
+*/
+export function fetchStock(stockData) {
+  // console.log('fetchStock ___: ', stockData);
+  return { type: FETCH_STOCK, payload: stockData };
+}
+
+export function getStock(stockSymbol = 'AMZN') {
+  const STOCK_URL = `https://api.iextrading.com/1.0/stock/${stockSymbol}/quote`;
+  // console.log('getStock called: ', WEATHER_URL);
+  return (dispatch) => {
+    axios.get(STOCK_URL)
+    .then((res) => {
+      console.log('stock response is: ', res.data);
+
+      // const response = res && res.data && res.data.data && res.data.data[0];
+      if (response) {
+        dispatch(fetchStock(response));
+      }
+    })
+    .catch((error) => {
+      dispatch(applicationError(error));
+      console.error("Error getting stock data: ", error);  //eslint-disable-line no-console
+    });
+  }
 }
 
 /*

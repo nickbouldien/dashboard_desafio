@@ -7,7 +7,7 @@ import store from './store';
 import Home from './routes/Home';
 import About from './routes/About';
 
-import Test from './routes/Test';
+import Dashboard from './routes/Dashboard';
 
 import Header from './components/Header';
 // import NoMatch from './components/NoMatch';
@@ -25,7 +25,7 @@ const App = () => (
             <Route exact path='/' component={Home} />
 
             <Route exact path='/about' component={About} />
-            <Route exact path='/test' component={Test} />
+            <Route exact path='/dashboard' component={Dashboard} />
 
             <Redirect to='/' />
           </Switch>

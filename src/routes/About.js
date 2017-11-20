@@ -8,9 +8,16 @@ const About = () => (
       <p>- <a href='https://github.com/facebook/react'>React 16</a></p>
       <p>- <a href='https://webpack.github.io/'>Webpack 3</a> (too much fun to setup...)</p>
       <p>- <a href='https://react-bootstrap.github.io/'>React Bootstrap</a> (quick styling)</p>
+
+
+
+
     </div>
 
-
+    <div>
+      API usage:
+      <p>- <a href='https://iextrading.com/api-exhibit-a'>IEX Trading</a></p>
+    </div>
 
 
 
