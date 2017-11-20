@@ -7,7 +7,7 @@ import { setSearchTerm } from '../actions/actionCreators';
 
 const InputForm = (props) => {
 
-  // console.log('inputform props: ', props);
+  console.log('inputform props: ', props);
 
   return (
     <div className='input-form-div' style={{ background: "gray" }}>
@@ -25,7 +25,7 @@ const InputForm = (props) => {
 }
 
 InputForm.propTypes = {
-  inputType: PropTypes.string,
+  inputType: PropTypes.string.isRequired,
   searchTerm: PropTypes.string,
   handleSearchTermChange: PropTypes.func.isRequired,
   submitFn: PropTypes.func.isRequired,
@@ -38,7 +38,8 @@ InputForm.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   searchTerm: state.inputReducer.searchTerm,
-  submitFn: ownProps.submitFn // necessary??
+  // submitFn: ownProps.submitFn,
+  // inputType: ownProps.inputType
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -6,11 +6,13 @@ import { combineReducers } from 'redux';
 import weatherReducer from './weatherReducer';
 import inputReducer from './inputReducer';
 import stockReducer from './stockReducer';
+import currencyReducer from './currencyReducer';
 
 const rootReducer = combineReducers({
   weatherReducer,
   inputReducer,
-  stockReducer
+  stockReducer,
+  currencyReducer
   // auth: authReducer,
   // searchTerm,
   // locations

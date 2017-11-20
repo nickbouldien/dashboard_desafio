@@ -9,6 +9,8 @@ export const SET_SEARCH_TERM = 'SET_SEARCH_TERM';
 
 export const FETCH_STOCK = 'FETCH_STOCK';
 
+export const FETCH_CURRENCY = 'FETCH_CURRENCY';
+
 // export const DRAG = 'DRAG';
 // export const DROP = 'DROP';
 

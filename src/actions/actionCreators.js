@@ -3,7 +3,8 @@ import {
   FETCH_WEATHER,
   APP_ERROR,
   SET_SEARCH_TERM,
-  FETCH_STOCK
+  FETCH_STOCK,
+  FETCH_CURRENCY
   // AUTH_USER,
   // UNAUTH_USER,
   // AUTH_ERROR,
@@ -20,6 +21,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const WEATHER_KEY = process.env.WEATHER_KEY || '2c6d4627538f4d09bf0bf753cab3e0d3';
+
+// apis to integrate:
+// stock
+// weather
+// currency
+// joke?
+// event?  https://developer.ticketmaster.com/products-and-docs/apis/getting-started/
 
 // console.log('the weather key: ', WEATHER_KEY, 'REACT_APP_WEATHER_KEY is: ', process.env.REACT_APP_WEATHER_KEY);
 
@@ -106,7 +114,7 @@ export function getStock(stockSymbol = 'AMZN') {
 
       // const response = res && res.data && res.data.data && res.data.data[0];
       if (res) {
-        dispatch(fetchStock(res));
+        dispatch(fetchStock(res.data));
       }
     })
     .catch((error) => {
@@ -115,6 +123,31 @@ export function getStock(stockSymbol = 'AMZN') {
     });
   }
 }
+
+/*
+      JOKE actions
+*/
+export function fetchCurrency(currencyData) {
+  // console.log('fetchLocations: ', locations);
+  return { type: FETCH_CURRENCY, payload: currencyData };
+}
+
+export function getCurrency(currencySymbol='USD') {
+  const CURRENCY_URL = `https://api.fixer.io/latest?base=${currencySymbol}`;
+  // console.log('getWeather called: ', WEATHER_URL);
+  return (dispatch) => {
+    axios.get(CURRENCY_URL)
+    .then((res) => {
+      // console.log('currency res is: ', res.data);
+      dispatch(fetchCurrency(res.data));
+    })
+    .catch((error) => {
+      dispatch(applicationError(error));
+      console.error("Error getting currency data: ", error);  //eslint-disable-line no-console
+    });
+  }
+}
+
 
 /*
       MAP actions

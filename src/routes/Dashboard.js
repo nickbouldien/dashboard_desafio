@@ -4,52 +4,54 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { getWeather, getStock } from '../actions/actionCreators';
+import { getWeather, getStock, getCurrency } from '../actions/actionCreators';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
+import CurrencyCard from '../components/CurrencyCard';
+import StockCard from '../components/StockCard';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      wookieFormat: false,
       weather: null,
       data: null
     }
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
     this.fetchStockData = this.fetchStockData.bind(this);
-
+    this.fetchCurrency = this.fetchCurrency.bind(this);
+    // this.fetchJoke = this.fetchJoke.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.fetchStockData();
-  // }
+  componentDidMount() {
+    this.fetchCurrency();
+  }
+
+  fetchCurrency() {
+    this.props.getCurrencyInfo();
+  }
 
   // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.wookieFormat !== this.state.wookieFormat) {
+  //   if (prevState.data !== this.state.data) {
   //     this.fetchWeatherData(true); // flips to/from wookie version
   //   }
   // }
 
   fetchWeatherData(changeCity) {
-    // let query = `memphis`;
     const query = this.props.searchTerm;
-    // console.log('the props are: ', this.props, 'searchTerm: ', query);
     this.props.getWeatherForCity(query);
   }
 
   fetchStockData() {
-    // let stockQuery = `GOOG`;
     const stock = this.props.searchTerm;
-    // console.log('the props are: ', this.props, 'searchTerm: ', query);
     this.props.getStockInfo(stock);
   }
 
 
   render() {
-    const { city, weather, error } = this.props;
-    console.log(this.props);
+    const { city, weather, error, stockData, currencyData } = this.props;
+    console.log('Dashbaord props: ', this.props);
     return (
       <div id='dashboard-div'>
         <h1>Dashboard</h1>
@@ -62,16 +64,16 @@ class Dashboard extends Component {
           </pre>)
         }
 
-        <InputForm submitFn={this.fetchWeatherData} type={"text"} placeholder={"Enter city"} />
+        <InputForm submitFn={this.fetchWeatherData} inputType={"text"} placeholder={"Enter city"} />
         <br />
         <br />
-        <InputForm submitFn={this.fetchStockData} type={"text"} placeholder={"Enter stock symbol"} />
-
-        {/* <button onClick={this.refresh}>Call Swapi again</button> */}
+        <InputForm submitFn={this.fetchStockData} inputType={"text"} placeholder={"Enter stock symbol"} />
 
         { weather && city && <WeatherCard weather={weather} city={city} color={'gray'} /> }
 
-        {/* { weather && city && <WeatherCard weather={weather} city={city} color={'lightblue'} /> } */}
+        { stockData && ( Object.keys(stockData.stock).length > 0 )&& <StockCard stock={stockData.stock} color={'lightblue'} /> }
+
+        { currencyData && ( Object.keys(currencyData.currency).length > 0 ) && <CurrencyCard currencyData={currencyData.currency} color={'green'} /> }
 
 
         {/* eslint-disable react/jsx-indent */}
@@ -103,8 +105,11 @@ Dashboard.propTypes = {
   weather: PropTypes.object,
   city: PropTypes.string,
   searchTerm: PropTypes.string,
+  stockData: PropTypes.object,
+  currencyData: PropTypes.object,
   getWeatherForCity: PropTypes.func.isRequired,
   getStockInfo: PropTypes.func.isRequired,
+  getCurrencyInfo: PropTypes.func.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
@@ -115,13 +120,10 @@ const mapStateToProps = (state, ownProps) => ({
   weather: state.weatherReducer.weather,
   city: state.weatherReducer.weather.city_name,
   stockData: state.stockReducer,
+  currencyData: state.currencyReducer,
   error: state.weatherReducer.error,
   searchTerm: state.inputReducer.searchTerm
 });
-
-// const mapDispatchToProps = dispatch => {
-//     return { listItems: () => { dispatch(listItems()) } }
-// }
 
 const mapDispatchToProps = (dispatch) => ({
   getWeatherForCity(query) {
@@ -129,7 +131,34 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getStockInfo(stock) {
     dispatch(getStock(stock));
+  },
+  getCurrencyInfo(currencySymbol) {
+    dispatch(getCurrency(currencySymbol));
   }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
+// const mapStateToProps = ({ reducer1, reducer2}) =>
+//     ({reducer1, reducer2 });
+
+// const mapDispatchToProps = dispatch => {
+//     return { listItems: () => { dispatch(listItems()) } }
+// }
+
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     actions: {
+//       todoActions: bindActionCreators(todoActions, dispatch),
+//       counterActions: bindActionCreators(counterActions, dispatch)
+//     }
+//   };
+// }
+
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//         userPositionActions : bindActionCreators(userPositionActions, dispatch),
+//         jobTitleSkillsActions: bindActionCreators(jobTitleSkillsActions, dispatch),
+//     }
+// }
