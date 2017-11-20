@@ -16,12 +16,18 @@ class Dashboard extends Component {
     super(props)
     this.state = {
       weather: null,
-      data: null
+      data: null,
+      inputType: 'weather',
+      submitFuction: this.fetchWeatherData,
+      input: 'text',
+      placeholder: 'Enter a city'
     }
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
     this.fetchStockData = this.fetchStockData.bind(this);
     this.fetchCurrency = this.fetchCurrency.bind(this);
     // this.fetchJoke = this.fetchJoke.bind(this);
+    this.renderInputForm = this.renderInputForm.bind(this);
+    this.testFunction = this.testFunction.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +54,40 @@ class Dashboard extends Component {
     this.props.getStockInfo(stock);
   }
 
+  renderInputForm(event) {
+    event.preventDefault();
+    console.log('called renderInputForm', event.target, event.target.value);
+
+    switch(event.target.value) {
+      case 'weather':
+        return this.setState({
+          inputType: event.target.value,
+          submitFuction: this.fetchWeatherData,
+          input: 'text',
+          placeholder: 'Enter a city'
+        });
+      case 'stock':
+        return this.setState({
+          inputType: event.target.value,
+          submitFuction: this.fetchStockData,
+          input: 'text',
+          placeholder: 'Enter a stock symbol'
+        });
+      case 'other':
+        return this.setState({
+          inputType: event.target.value,
+          submitFuction: this.testFunction,
+          input: 'number',
+          placeholder: '0'
+        });
+      default:
+        return;
+    }
+  }
+
+  testFunction() {
+    console.log('test function called');
+  }
 
   render() {
     const { city, weather, error, stockData, currencyData } = this.props;
@@ -64,33 +104,31 @@ class Dashboard extends Component {
           </pre>)
         }
 
-        <InputForm submitFn={this.fetchWeatherData} inputType={"text"} placeholder={"Enter city"} />
+        <div>
+          <InputForm
+            submitFn={this.state.submitFuction.bind(this)}
+            inputType={this.state.input}
+            placeholder={this.state.placeholder}
+          />
+
+          <select value={this.state.inputType} name='select' onChange={this.renderInputForm}>
+            <option value='weather'>Weather</option>
+            <option value='stock'>Stock</option>
+            <option value='other'>Other</option>
+          </select>
+        </div>
+
+        {/* <InputForm submitFn={this.fetchWeatherData} inputType={"text"} placeholder={"Enter city"} />
         <br />
         <br />
-        <InputForm submitFn={this.fetchStockData} inputType={"text"} placeholder={"Enter stock symbol"} />
+        <InputForm submitFn={this.fetchStockData} inputType={"text"} placeholder={"Enter stock symbol"} /> */}
 
         { weather && city && <WeatherCard weather={weather} city={city} color={'gray'} /> }
 
-        { stockData && ( Object.keys(stockData.stock).length > 0 )&& <StockCard stock={stockData.stock} color={'lightblue'} /> }
+        { stockData && ( Object.keys(stockData.stock).length > 0 ) && <StockCard stock={stockData.stock} color={'lightblue'} /> }
 
         { currencyData && ( Object.keys(currencyData.currency).length > 0 ) && <CurrencyCard currencyData={currencyData.currency} color={'green'} /> }
 
-
-        {/* eslint-disable react/jsx-indent */}
-      {/* {(
-        <div>
-          <Image src={`/images/${character}.png`} responsive thumbnail alt={`Image for ${character}`} />
-
-          <h3>Weather for city: {city || 'N/A'} :</h3>
-          <pre>
-            <code>
-              {JSON.stringify(weather, null, 4)}
-            </code>
-          </pre>
-
-        </div>
-      ) || <Spinner1 />
-      } */}
 
       </div>
     )
