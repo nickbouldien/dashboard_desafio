@@ -16,7 +16,13 @@ const About = () => (
 
     <div>
       API usage:
-      <p>- <a href='https://iextrading.com/api-exhibit-a'>IEX Trading</a></p>
+      <p>- <a href='https://iextrading.com/api-exhibit-a'>IEX Trading (api used for stocks)</a></p>
+      <p>- <a href='http://fixer.io/'>fixer.io (api used for currencies)</a></p>
+
+      For list of public apis:
+      <p>- <a href='https://github.com/toddmotto/public-apis#currency-exchange'>github link</a></p>
+
+
     </div>
 
 

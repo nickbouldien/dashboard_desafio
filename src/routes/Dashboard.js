@@ -4,12 +4,15 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import { getWeather, getStock, getCurrency } from '../actions/actionCreators';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
 import CurrencyCard from '../components/CurrencyCard';
 import StockCard from '../components/StockCard';
+import { ny_weather, goog_stock } from '../mockData';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -28,6 +31,7 @@ class Dashboard extends Component {
     // this.fetchJoke = this.fetchJoke.bind(this);
     this.renderInputForm = this.renderInputForm.bind(this);
     this.testFunction = this.testFunction.bind(this);
+    this.state.submitFuction = this.state.submitFuction.bind(this)
   }
 
   componentDidMount() {
@@ -106,7 +110,7 @@ class Dashboard extends Component {
 
         <div>
           <InputForm
-            submitFn={this.state.submitFuction.bind(this)}
+            submitFn={this.state.submitFuction}
             inputType={this.state.input}
             placeholder={this.state.placeholder}
           />
@@ -125,7 +129,13 @@ class Dashboard extends Component {
 
         { weather && city && <WeatherCard weather={weather} city={city} color={'gray'} /> }
 
+        {/* w/ mock data */}
+        <WeatherCard weather={ny_weather} city={ny_weather.city_name} color={'lightgray'} />
+
+
         { stockData && ( Object.keys(stockData.stock).length > 0 ) && <StockCard stock={stockData.stock} color={'lightblue'} /> }
+
+        <StockCard stock={goog_stock} color={'salmon'} />
 
         { currencyData && ( Object.keys(currencyData.currency).length > 0 ) && <CurrencyCard currencyData={currencyData.currency} color={'green'} /> }
 
