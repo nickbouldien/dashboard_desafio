@@ -5,10 +5,12 @@ import { combineReducers } from 'redux';
 // import * as reducers from './reducers'
 import weatherReducer from './weatherReducer';
 import inputReducer from './inputReducer';
+import stockReducer from './stockReducer';
 
 const rootReducer = combineReducers({
   weatherReducer,
-  inputReducer
+  inputReducer,
+  stockReducer
   // auth: authReducer,
   // searchTerm,
   // locations

@@ -40,11 +40,22 @@ export function applicationError(error) {
   }
 }
 
+/*
+      SEARCH actions
+*/
 export function setSearchTerm(searchTerm) {
   // console.log('setSearchTerm: ', searchTerm);
   return { type: SET_SEARCH_TERM, payload: searchTerm };
 }
 
+export function getSearchTerm(searchTerm, searchType) {
+  // console.log('getWeather called: ', WEATHER_URL);
+  return (dispatch) => {
+    dispatch(setSearchTerm(searchTerm, searchType));
+
+
+  }
+}
 
 /*
       WEATHER actions
@@ -94,8 +105,8 @@ export function getStock(stockSymbol = 'AMZN') {
       console.log('stock response is: ', res.data);
 
       // const response = res && res.data && res.data.data && res.data.data[0];
-      if (response) {
-        dispatch(fetchStock(response));
+      if (res) {
+        dispatch(fetchStock(res));
       }
     })
     .catch((error) => {

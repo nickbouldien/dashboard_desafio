@@ -15,11 +15,10 @@ const InputForm = (props) => {
         type={props.inputType}
         onChange={props.handleSearchTermChange}
         value={props.searchTerm}
-        // placeholder={props.placeholder}
-        placeholder='Enter a city'
+        placeholder={props.placeholder}
       />
       <br />
-      <button onClick={props.submitFn}>Enter city</button>
+      <button onClick={props.submitFn}>Submit</button>
 
     </div>
   )
@@ -29,7 +28,8 @@ InputForm.propTypes = {
   inputType: PropTypes.string,
   searchTerm: PropTypes.string,
   handleSearchTermChange: PropTypes.func.isRequired,
-  submitFn: PropTypes.func.isRequired
+  submitFn: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired
   // error: PropTypes.oneOfType([
   //   PropTypes.string,
   //   PropTypes.object
@@ -38,7 +38,7 @@ InputForm.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   searchTerm: state.inputReducer.searchTerm,
-  submitFn: ownProps.submitFn
+  submitFn: ownProps.submitFn // necessary??
 });
 
 const mapDispatchToProps = (dispatch) => ({

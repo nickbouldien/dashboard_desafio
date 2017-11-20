@@ -4,24 +4,26 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { getWeather } from '../actions/actionCreators';
+import { getWeather, getStock } from '../actions/actionCreators';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
 
 class Dashboard extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       wookieFormat: false,
       weather: null,
       data: null
     }
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
+    this.fetchStockData = this.fetchStockData.bind(this);
+
   }
 
   // componentDidMount() {
-  //   this.fetchWeatherData(false);
+  //   this.fetchStockData();
   // }
 
   // componentDidUpdate(prevProps, prevState) {
@@ -31,11 +33,17 @@ class Dashboard extends Component {
   // }
 
   fetchWeatherData(changeCity) {
-
     // let query = `memphis`;
     const query = this.props.searchTerm;
     // console.log('the props are: ', this.props, 'searchTerm: ', query);
     this.props.getWeatherForCity(query);
+  }
+
+  fetchStockData() {
+    // let stockQuery = `GOOG`;
+    const stock = this.props.searchTerm;
+    // console.log('the props are: ', this.props, 'searchTerm: ', query);
+    this.props.getStockInfo(stock);
   }
 
 
@@ -54,18 +62,24 @@ class Dashboard extends Component {
           </pre>)
         }
 
-        <InputForm submitFn={this.fetchWeatherData} type={"text"} />
+        <InputForm submitFn={this.fetchWeatherData} type={"text"} placeholder={"Enter city"} />
+        <br />
+        <br />
+        <InputForm submitFn={this.fetchStockData} type={"text"} placeholder={"Enter stock symbol"} />
 
         {/* <button onClick={this.refresh}>Call Swapi again</button> */}
 
-        { weather && city && <WeatherCard weather={weather} city={city} /> }
+        { weather && city && <WeatherCard weather={weather} city={city} color={'gray'} /> }
+
+        {/* { weather && city && <WeatherCard weather={weather} city={city} color={'lightblue'} /> } */}
+
 
         {/* eslint-disable react/jsx-indent */}
-      {(
+      {/* {(
         <div>
-          {/* <Image src={`/images/${character}.png`} responsive thumbnail alt={`Image for ${character}`} /> */}
+          <Image src={`/images/${character}.png`} responsive thumbnail alt={`Image for ${character}`} />
 
-          <h3>Response from swapi for city: {city || 'N/A'} :</h3>
+          <h3>Weather for city: {city || 'N/A'} :</h3>
           <pre>
             <code>
               {JSON.stringify(weather, null, 4)}
@@ -74,7 +88,7 @@ class Dashboard extends Component {
 
         </div>
       ) || <Spinner1 />
-      }
+      } */}
 
       </div>
     )
@@ -90,6 +104,7 @@ Dashboard.propTypes = {
   city: PropTypes.string,
   searchTerm: PropTypes.string,
   getWeatherForCity: PropTypes.func.isRequired,
+  getStockInfo: PropTypes.func.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
@@ -99,6 +114,7 @@ Dashboard.propTypes = {
 const mapStateToProps = (state, ownProps) => ({
   weather: state.weatherReducer.weather,
   city: state.weatherReducer.weather.city_name,
+  stockData: state.stockReducer,
   error: state.weatherReducer.error,
   searchTerm: state.inputReducer.searchTerm
 });
@@ -110,6 +126,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   getWeatherForCity(query) {
     dispatch(getWeather(query));
+  },
+  getStockInfo(stock) {
+    dispatch(getStock(stock));
   }
 });
 
