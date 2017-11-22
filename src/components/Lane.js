@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
@@ -6,6 +6,7 @@ import throttle from 'lodash/throttle';
 import Cards from './Cards';
 import ItemTypes from '../constants/itemTypes';
 import { detachFromLane, attachToLane /*, move*/ } from '../actions/actionCreators';
+
 const cardTarget = {
   hover(targetProps, monitor) {
     const sourceProps = monitor.getItem();
@@ -14,8 +15,7 @@ const cardTarget = {
     throttle(() => {
       console.log('cardTarget in Lane ', targetProps, 't/f: ', !targetProps.lane.cards.length,
           !targetProps.laneCards.length, 'sourceId: ', sourceId)}
-          , 1300);
-
+          , 1200);
 
     if(!targetProps.lane.cards.length) {
       targetProps.attachToLane(
@@ -26,7 +26,7 @@ const cardTarget = {
   }
 };
 
-class Lane extends React.Component {
+class Lane extends Component {
 
   // deleteNote(laneId, noteId, e) {
   //   e.stopPropagation();
