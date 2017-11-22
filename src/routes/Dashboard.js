@@ -57,7 +57,7 @@ class Dashboard extends Component {
 
   fetchStockData() {
     const stock = this.props.searchTerm;
-    this.props.getStockInfo(stock);
+    // this.props.getStockInfo(stock);
   }
 
   renderInputForm(event) {
@@ -133,14 +133,14 @@ class Dashboard extends Component {
         {/* { weather && city && <WeatherCard weather={weather} city={city} color={'gray'} /> } */}
 
         {/* w/ mock data */}
-        <WeatherCard weather={ny_weather} city={ny_weather.city_name} color={'lightgray'} />
+        {/* <WeatherCard weather={ny_weather} city={ny_weather.city_name} color={'lightgray'} /> */}
 
 
-        { stockData && ( Object.keys(stockData.stock).length > 0 ) && <StockCard stock={stockData.stock} color={'lightblue'} /> }
+        {/* { stockData && ( Object.keys(stockData.stock).length > 0 ) && <StockCard stock={stockData.stock} color={'lightblue'} /> } */}
 
-        <StockCard stock={goog_stock} color={'salmon'} />
+        {/* <StockCard stock={goog_stock} color={'salmon'} /> */}
 
-        { currencyData && ( Object.keys(currencyData.currency).length > 0 ) && <CurrencyCard currencyData={currencyData.currency} color={'green'} /> }
+        {/* { currencyData && ( Object.keys(currencyData.currency).length > 0 ) && <CurrencyCard currencyData={currencyData.currency} color={'green'} /> } */}
 
 
       </div>

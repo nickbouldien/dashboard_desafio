@@ -2,21 +2,20 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
+import throttle from 'lodash/throttle';
 import Cards from './Cards';
 import ItemTypes from '../constants/itemTypes';
 import { detachFromLane, attachToLane /*, move*/ } from '../actions/actionCreators';
-// import Editable from './Editable.jsx';
-// import * as laneActions from '../actions/lanes';
-// import * as noteActions from '../actions/notes';
-// import { getWeather, getStock, getCurrency } from '../actions/actionCreators';
-
 const cardTarget = {
   hover(targetProps, monitor) {
     const sourceProps = monitor.getItem();
     const sourceId = sourceProps.id;
 
-    console.log('cardTarget in Lane ', targetProps, 't/f: ', !targetProps.lane.cards.length,
-      !targetProps.laneCards.length, 'sourceId: ', sourceId);
+    throttle(() => {
+      console.log('cardTarget in Lane ', targetProps, 't/f: ', !targetProps.lane.cards.length,
+          !targetProps.laneCards.length, 'sourceId: ', sourceId)}
+          , 1300);
+
 
     if(!targetProps.lane.cards.length) {
       targetProps.attachToLane(
@@ -29,36 +28,12 @@ const cardTarget = {
 
 class Lane extends React.Component {
 
-  // deleteLane(lane, e) {
+  // deleteNote(laneId, noteId, e) {
   //   e.stopPropagation();
   //
-  //   const laneId = lane.id;
-  //
-  //   // Clean up notes
-  //   lane.notes.forEach(noteId => {
-  //     this.props.detachFromLane(laneId, noteId);
-  //     // this.props.deleteNote(noteId);
-  //   });
-  //
-  //   // this.props.deleteLane(laneId);
+  //   this.props.detachFromLane(laneId, noteId);
+  //   this.props.deleteNote(noteId);
   // }
-
-  // addNote(laneId, e) {
-  //   e.stopPropagation();
-  //
-  //   const o = this.props.createNote({
-  //     task: 'New task'
-  //   });
-  //   this.props.attachToLane(laneId, o.note.id);
-  // }
-
-
-  deleteNote(laneId, noteId, e) {
-    e.stopPropagation();
-
-    this.props.detachFromLane(laneId, noteId);
-    this.props.deleteNote(noteId);
-  }
 
   render() {
     const props = this.props;
@@ -73,16 +48,7 @@ class Lane extends React.Component {
         <div className='lane-header'
           // onClick={() => props.updateLane({ id: laneId, editing: true })}
           >
-          {/* <div className="lane-add-note">
-            <button onClick={this.addNote.bind(this, laneId)}>+</button>
-          </div> */}
-          {/* <Editable className="lane-name" editing={lane.editing}
-            value={lane.name}
-            onEdit={name => props.updateLane({ id: laneId, name, editing: false })}
-          /> */}
-          {/* <div className='lane-delete'>
-            <button onClick={this.deleteLane.bind(this, lane)}>x</button>
-          </div> */}
+          <h4>{lane.name}</h4>
         </div>
         <Cards
           cards={laneCards}
@@ -93,7 +59,6 @@ class Lane extends React.Component {
       </div>
     );
   }
-
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -116,18 +81,3 @@ export default compose(
     connectDropTarget: connect.dropTarget()
   }))
 )(Lane);
-
-
-
-//
-// const Lane = (props) => {
-//   console.log('lane props ', props);
-//   return (
-//     <div>
-//       <h3>lane here</h3>
-//       <p>lane here {props.lane.id}</p>
-//     </div>
-//   )
-// }
-//
-// export default Lane;

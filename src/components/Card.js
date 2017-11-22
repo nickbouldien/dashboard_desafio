@@ -31,34 +31,25 @@ class Card extends Component {
   render() {
     const {connectDragSource, connectDropTarget, isDragging,
       onMove, id, editing, ...props} = this.props;
-    // Pass through if we are editing
 
     console.log('Card props, ', this.props);
     const dragSource = editing ? a => a : connectDragSource;
 
     return dragSource(connectDropTarget(
-      <div style={{
+      <div className='card-div' style={{
         opacity: isDragging ? 0.3 : 1
       }}>
-        {props.cardData.city_name},
-        {props.cardData.temp},
-        {props.cardData.app_temp}
+        <h4>{props.cardData.city_name}</h4>
+        <p>temp: {props.cardData.temp}</p>
+        <p>app temp:{props.cardData.app_temp}</p>
       </div>
-
-      // <li style={{
-      //   opacity: isDragging ? 0.3 : 1
-      // }}
-      // >
-      //
-      // </li>
     ));
   }
 }
 
 Card.propTypes = {
-  weather: PropTypes.object,
-  // city: PropTypes.string,
-  searchTerm: PropTypes.string,
+  // weather: PropTypes.object,
+  // searchTerm: PropTypes.string,
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,

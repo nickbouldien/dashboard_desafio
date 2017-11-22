@@ -77,7 +77,7 @@ export function getWeather(queryCity, units="I") {
   return (dispatch) => {
     axios.get(WEATHER_URL)
     .then((res) => {
-      console.log('response111 is: ', res.data.data[0]);
+      console.log('getWeather res is: ', res.data.data[0]);
 
       const response = res && res.data && res.data.data && res.data.data[0];
       if (response) {

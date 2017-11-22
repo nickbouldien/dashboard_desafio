@@ -50,7 +50,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 0.5em;
 
-  min-width: 10em;
+  min-width: 20em;
   vertical-align: top;
 }
 
@@ -68,4 +68,12 @@ body {
 
 .lane-name {
   float: left;
+}
+
+/*
+    CARD styles
+*/
+.card-div {
+  color: blue;
+  border: 1px solid black;
 }

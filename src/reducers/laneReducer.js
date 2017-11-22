@@ -1,5 +1,4 @@
 import update from "react-addons-update";
-// import * as types from "../actions/lanes";
 import { DETACH_FROM_LANE, ATTACH_TO_LANE, UPDATE_LANE, MOVE } from '../actions/actionTypes';
 
 const initialState = [
@@ -19,7 +18,7 @@ const initialState = [
 ];
 
 export default function lanes(state = initialState, action) {
-  console.log('laneReducer', action.type, action.laneId);
+  // console.log('laneReducer', action.type, action.laneId);
   switch (action.type) {
 
     case UPDATE_LANE:
@@ -67,12 +66,6 @@ export default function lanes(state = initialState, action) {
         return lane;
       });
 
-
-    // case types.CREATE_LANE:
-    //   return [...state, action.lane];
-    // case types.DELETE_LANE:
-    //   return state.filter(lane => lane.id !== action.id);
-
     case MOVE:
       const sourceId = action.sourceId;
       const targetId = action.targetId;
@@ -101,9 +94,8 @@ export default function lanes(state = initialState, action) {
             : lane;
         });
       } else {
-        return state.map(lane => {
+        return state.map(lane => { // remove card from current lane
           if (lane === sourceLane) {
-            // get rid of the source note
             return Object.assign({}, lane, {
               cards:
                 lane.cards.length > 1
@@ -114,8 +106,7 @@ export default function lanes(state = initialState, action) {
             });
           }
 
-          if (lane === targetLane) {
-            // and move it to target
+          if (lane === targetLane) { // move card to target
             return Object.assign({}, lane, {
               cards: lane.cards
                 .slice(0, targetNoteIndex)
