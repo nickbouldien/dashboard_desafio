@@ -4,12 +4,10 @@ import {
   APP_ERROR,
   SET_SEARCH_TERM,
   FETCH_STOCK,
-  FETCH_CURRENCY
-  // AUTH_USER,
-  // UNAUTH_USER,
-  // AUTH_ERROR,
-  // FETCH_LOCATIONS,
-  // ADD_LOCATION,
+  FETCH_CURRENCY,
+  ATTACH_TO_LANE,
+  DETACH_FROM_LANE,
+  MOVE
 } from './actionTypes';
 
 let ROOT_URL;
@@ -147,6 +145,40 @@ export function getCurrency(currencySymbol='USD') {
     });
   }
 }
+
+/*
+      LANE actions
+*/
+export function attachToLane(laneId, cardId) {
+  return {
+    type: ATTACH_TO_LANE,
+    laneId,
+    cardId
+  };
+}
+export function detachFromLane(laneId, cardId) {
+  return {
+    type: DETACH_FROM_LANE,
+    laneId,
+    cardId
+  };
+}
+
+export function move({ sourceId, targetId }) {
+  return {
+    type: MOVE,
+    sourceId,
+    targetId
+  };
+}
+
+export function updateLane(updatedLane) {
+  return {
+    type: UPDATE_LANE,
+    ...updatedLane
+  };
+}
+
 
 
 /*

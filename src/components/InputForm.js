@@ -7,7 +7,7 @@ import { setSearchTerm } from '../actions/actionCreators';
 
 const InputForm = (props) => {
 
-  console.log('inputform props: ', props);
+  // console.log('inputform props: ', props);
 
   return (
     <div className='input-form-div' style={{ background: "gray" }}>

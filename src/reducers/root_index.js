@@ -7,12 +7,14 @@ import weatherReducer from './weatherReducer';
 import inputReducer from './inputReducer';
 import stockReducer from './stockReducer';
 import currencyReducer from './currencyReducer';
+import laneReducer from './laneReducer';
 
 const rootReducer = combineReducers({
-  weatherReducer,
+  weatherReducer, // need to change to cards (cardReducer)
   inputReducer,
   stockReducer,
-  currencyReducer
+  currencyReducer,
+  laneReducer
   // auth: authReducer,
   // searchTerm,
   // locations
