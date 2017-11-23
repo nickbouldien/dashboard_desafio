@@ -10,7 +10,7 @@ import currencyReducer from './currencyReducer';
 import laneReducer from './laneReducer';
 
 const rootReducer = combineReducers({
-  weatherReducer, // need to change to cards (cardReducer)
+  weather: weatherReducer, // need to change to cards (cardReducer)
   inputReducer,
   stockReducer,
   currencyReducer,

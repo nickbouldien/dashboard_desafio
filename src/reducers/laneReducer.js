@@ -20,11 +20,11 @@ const initialState = [
 export default function lanes(state = initialState, action) {
   // console.log('laneReducer', action.type, action.laneId);
   switch (action.type) {
-
     case UPDATE_LANE:
       return state.map(lane => {
         if (lane.id === action.id) {
           const { type, ...updatedLane } = action;
+          console.log('laneReducer', Object.assign({}, lane, updatedLane));
           return Object.assign({}, lane, updatedLane);
         }
 
@@ -34,6 +34,8 @@ export default function lanes(state = initialState, action) {
     case ATTACH_TO_LANE:
       const laneId = action.laneId;
       const cardId = action.cardId;
+      console.log('action laneId: ', laneId, ' cardId: ', cardId);
+      // this.props.attachToLane(laneId, cardId);
 
       return state.map(lane => {
         const index = lane.cards.indexOf(cardId);
@@ -46,7 +48,10 @@ export default function lanes(state = initialState, action) {
                 : []
           });
         }
+        // console.log('adding to lane? ', lane.id, laneId);
+
         if (lane.id === laneId) {
+          console.log('adding to lane!!!', [...lane.cards, cardId], 'id: ', lane.id, laneId);
           return Object.assign({}, lane, {
             cards: [...lane.cards, cardId]
           });

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
+import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
 import Cards from './Cards';
 import ItemTypes from '../constants/itemTypes';
@@ -35,10 +36,27 @@ class Lane extends Component {
   //   this.props.deleteNote(noteId);
   // }
 
-  render() {
-    const props = this.props;
+  // componentWillReceiveProps(nextProps) {
+  //
+  //   if (true) {
+  //     console.log('the next props are', nextProps);
+  //   }
+  // }
 
-    const { connectDropTarget, lane, laneCards, className } = props;
+  // addCard(laneId, e) {
+  //   e.stopPropagation();
+  //   console.log('called addNote');
+  //
+  //   // const o = this.props.createNote({
+  //   //   task: 'New task'
+  //   // });
+  //   this.props.attachToLane(laneId, o.note.id);
+  // }
+
+  render() {
+    // const props = this.props;
+
+    const { connectDropTarget, lane, laneCards, className } = this.props;
     const laneId = lane.id;
 
     console.log('Lane props ', this.props, 'laneId ', laneId);
@@ -61,6 +79,14 @@ class Lane extends Component {
   }
 }
 
+Lane.propTypes = {
+  // connectDropTarget: PropTypes.function.isRequired,
+  // attachToLane: PropTypes.function.isRequired,
+  lane: PropTypes.object,
+  laneCards: PropTypes.array,
+  className: PropTypes.string,
+};
+
 const mapDispatchToProps = (dispatch) => ({
   attachToLane(targetPropsLaneId, sourceId) {
     dispatch(attachToLane(targetPropsLaneId, sourceId));
@@ -73,8 +99,8 @@ const mapDispatchToProps = (dispatch) => ({
 export default compose(
   connect((state, props) => ({
     // TODO: change weatherReducer to "cards"
-    laneCards: props.lane.cards.map(id => state.weatherReducer[
-      state.weatherReducer.findIndex(card => card.id === id)
+    laneCards: props.lane.cards.map(id => state.weather[
+      state.weather.findIndex(card => card.id === id)
     ]).filter(card => card)
   }), mapDispatchToProps),
   DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({

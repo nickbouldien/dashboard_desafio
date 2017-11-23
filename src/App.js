@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import configureStore from './store';
 
 import Home from './routes/Home';
 import About from './routes/About';
@@ -13,6 +13,8 @@ import Header from './components/Header';
 // import NoMatch from './components/NoMatch';
 
 import './styles.css';
+
+const store = configureStore();
 
 
 const App = () => (

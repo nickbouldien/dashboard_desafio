@@ -29,14 +29,6 @@ const WEATHER_KEY = process.env.WEATHER_KEY || '2c6d4627538f4d09bf0bf753cab3e0d3
 
 // console.log('the weather key: ', WEATHER_KEY, 'REACT_APP_WEATHER_KEY is: ', process.env.REACT_APP_WEATHER_KEY);
 
-// console.log('actioncreators user ', user && JSON.parse(user) && JSON.parse(user).email);
-// let userEmail;
-// try {
-//   userEmail = user && JSON.parse(user) && JSON.parse(user).email;
-// } catch (err) {
-//   userEmail = null;
-// }
-
 
 /* make a default error handler (for not auth, just routine errors) */
 export function applicationError(error) {
@@ -58,8 +50,6 @@ export function getSearchTerm(searchTerm, searchType) {
   // console.log('getWeather called: ', WEATHER_URL);
   return (dispatch) => {
     dispatch(setSearchTerm(searchTerm, searchType));
-
-
   }
 }
 
@@ -71,9 +61,9 @@ export function fetchWeather(weather) {
   return { type: FETCH_WEATHER, payload: weather };
 }
 
-export function getWeather(queryCity, units="I") {
+export function getWeather(queryCity, units="I", laneId, cardId) {
   const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}&units=${units}`;
-  // console.log('getWeather called: ', WEATHER_URL);
+  console.log('getWeather called: ', laneId, cardId);
   return (dispatch) => {
     axios.get(WEATHER_URL)
     .then((res) => {
@@ -82,6 +72,7 @@ export function getWeather(queryCity, units="I") {
       const response = res && res.data && res.data.data && res.data.data[0];
       if (response) {
         dispatch(fetchWeather(response));
+        dispatch(attachToLane(laneId, cardId))
       } else {
         // nb???
         throw new Error("not a valid city")
@@ -150,6 +141,7 @@ export function getCurrency(currencySymbol='USD') {
       LANE actions
 */
 export function attachToLane(laneId, cardId) {
+  console.log('called attachToLane (actions)', laneId, cardId);
   return {
     type: ATTACH_TO_LANE,
     laneId,
@@ -178,6 +170,24 @@ export function updateLane(updatedLane) {
     ...updatedLane
   };
 }
+
+/* more concise */
+// export const detachFromLane = (laneId, cardId) => ({
+//   type: DETACH_FROM_LANE,
+//   laneId,
+//   cardId
+// });
+
+// export const move = (laneId, cardId) => ({
+//   type: MOVE,
+//   sourceId,
+//   targetId
+// });
+
+// export const updateLane = (updatedLane) => ({
+//   type: UPDATE_LANE,
+//   ...updateLane
+// });
 
 
 

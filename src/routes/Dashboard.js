@@ -7,7 +7,8 @@ import { Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { getWeather, getStock, getCurrency } from '../actions/actionCreators';
+import { v4 } from 'node-uuid';
+import { getWeather, getStock, getCurrency, attachToLane } from '../actions/actionCreators';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
@@ -20,6 +21,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      lane: 1,
       weather: null,
       data: null,
       inputType: 'weather',
@@ -50,10 +52,18 @@ class Dashboard extends Component {
   //   }
   // }
 
-  fetchWeatherData(changeCity) {
+  fetchWeatherData() {
+    // e.stopPropagation();
     const query = this.props.searchTerm;
-    this.props.getWeatherForCity(query);
+    const units = "I";
+    const laneId = this.state.lane || 1;
+    const cardId = v4();
+
+    this.props.getWeatherForCity(query, units, laneId, cardId);
+    // console.log('newWeather obj is: ', cardId);
+    // this.props.attachToLane(laneId, cardId);
   }
+
 
   fetchStockData() {
     const stock = this.props.searchTerm;
@@ -153,7 +163,7 @@ class Dashboard extends Component {
 // })
 
 Dashboard.propTypes = {
-  weather: PropTypes.object,
+  weather: PropTypes.array,
   // city: PropTypes.string,
   searchTerm: PropTypes.string,
   stockData: PropTypes.object,
@@ -162,6 +172,7 @@ Dashboard.propTypes = {
   getWeatherForCity: PropTypes.func.isRequired,
   getStockInfo: PropTypes.func.isRequired,
   getCurrencyInfo: PropTypes.func.isRequired,
+  attachToLane: PropTypes.func.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
@@ -169,25 +180,28 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  weather: state.weatherReducer.weather,
+  weather: state.weather,
   // city: state.weatherReducer.weather.city_name,
   stockData: state.stockReducer,
   currencyData: state.currencyReducer,
-  error: state.weatherReducer.error,
+  error: state.weather.error,
   searchTerm: state.inputReducer.searchTerm,
   lanes: state.laneReducer
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getWeatherForCity(query) {
-    dispatch(getWeather(query));
+  getWeatherForCity(query, units, laneId, cardId) {
+    dispatch(getWeather(query, units, laneId, cardId));
   },
   getStockInfo(stock) {
     dispatch(getStock(stock));
   },
   getCurrencyInfo(currencySymbol) {
     dispatch(getCurrency(currencySymbol));
-  }
+  },
+  attachToLane(targetPropsLaneId, sourceId) {
+    dispatch(attachToLane(targetPropsLaneId, sourceId));
+  },
 });
 
 // export default DragDropContext(HTML5Backend)(Board); // DnD
@@ -197,7 +211,7 @@ export default compose(
   DragDropContext(HTML5Backend),
   // connect( ({lanes}) => ({lanes}), {LaneActions} )
   connect(mapStateToProps, mapDispatchToProps)
-)(Dashboard)
+)(Dashboard);
 
 // https://github.com/react-dnd/react-dnd/issues/373
 // export default compose(
