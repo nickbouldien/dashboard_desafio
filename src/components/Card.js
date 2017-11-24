@@ -29,8 +29,8 @@ const cardTarget = {
 
 class Card extends Component {
   render() {
-    const {connectDragSource, connectDropTarget, isDragging,
-      onMove, id, editing, ...props} = this.props;
+    const { connectDragSource, connectDropTarget, isDragging,
+      onMove, id, editing, ...props } = this.props;
 
     // console.log('Card props, ', this.props);
     const dragSource = editing ? a => a : connectDragSource;
@@ -41,15 +41,13 @@ class Card extends Component {
       }}>
         <h4>{props.cardData.city_name}</h4>
         <p>temp: {props.cardData.temp}</p>
-        <p>app temp:{props.cardData.app_temp}</p>
+        <p>app temp: {props.cardData.app_temp}</p>
       </div>
     ));
   }
 }
 
 Card.propTypes = {
-  // weather: PropTypes.object,
-  // searchTerm: PropTypes.string,
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,

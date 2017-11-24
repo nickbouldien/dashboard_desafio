@@ -14,6 +14,10 @@ const weatherReducer = (state = initialState, action) => {
       const newWeather = action.payload;
       console.log('weatherReducer state', [...state, newWeather]);
       return [...state, newWeather]
+    // case FETCH_STOCK:
+    //   const newStock = action.payload;
+    //   console.log('weatherReducer state (stock)', [...state, newStock]);
+    //   return [...state, newStock]
     default:
       return state;
   }

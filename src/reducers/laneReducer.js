@@ -4,7 +4,7 @@ import { DETACH_FROM_LANE, ATTACH_TO_LANE, UPDATE_LANE, MOVE } from '../actions/
 const initialState = [
   {
     id: 1,
-    name: 'lane1',
+    name: 'lane 1',
     cards: [
       'mockWeather_SF',
       'mockWeather_MEM'
@@ -12,8 +12,13 @@ const initialState = [
   },
   {
     id: 2,
-    name: 'lane2',
+    name: 'lane 2',
     cards: ["mockWeather_NY"]
+  },
+  {
+    id: 3,
+    name: 'Delete',
+    cards: []
   }
 ];
 
@@ -34,7 +39,7 @@ export default function lanes(state = initialState, action) {
     case ATTACH_TO_LANE:
       const laneId = action.laneId;
       const cardId = action.cardId;
-      console.log('action laneId: ', laneId, ' cardId: ', cardId);
+      // console.log('action laneId: ', laneId, ' cardId: ', cardId);
       // this.props.attachToLane(laneId, cardId);
 
       return state.map(lane => {
@@ -51,7 +56,7 @@ export default function lanes(state = initialState, action) {
         // console.log('adding to lane? ', lane.id, laneId);
 
         if (lane.id === laneId) {
-          console.log('adding to lane!!!', [...lane.cards, cardId], 'id: ', lane.id, laneId);
+          // console.log('adding to lane!!!', [...lane.cards, cardId], 'id: ', lane.id, laneId);
           return Object.assign({}, lane, {
             cards: [...lane.cards, cardId]
           });

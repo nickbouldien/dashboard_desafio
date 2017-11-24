@@ -29,30 +29,6 @@ const cardTarget = {
 
 class Lane extends Component {
 
-  // deleteNote(laneId, noteId, e) {
-  //   e.stopPropagation();
-  //
-  //   this.props.detachFromLane(laneId, noteId);
-  //   this.props.deleteNote(noteId);
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //
-  //   if (true) {
-  //     console.log('the next props are', nextProps);
-  //   }
-  // }
-
-  // addCard(laneId, e) {
-  //   e.stopPropagation();
-  //   console.log('called addNote');
-  //
-  //   // const o = this.props.createNote({
-  //   //   task: 'New task'
-  //   // });
-  //   this.props.attachToLane(laneId, o.note.id);
-  // }
-
   render() {
     const { connectDropTarget, lane, laneCards, className } = this.props;
     const laneId = lane.id;

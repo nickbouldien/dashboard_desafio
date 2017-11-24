@@ -46,28 +46,22 @@ class Dashboard extends Component {
     this.props.getCurrencyInfo();
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.data !== this.state.data) {
-  //     this.fetchWeatherData(true); // flips to/from wookie version
-  //   }
-  // }
-
   fetchWeatherData() {
-    // e.stopPropagation();
     const query = this.props.searchTerm;
     const units = "I";
     const laneId = this.state.lane || 1;
     const cardId = v4();
 
     this.props.getWeatherForCity(query, units, laneId, cardId);
-    // console.log('newWeather obj is: ', cardId);
-    // this.props.attachToLane(laneId, cardId);
   }
 
 
   fetchStockData() {
     const stock = this.props.searchTerm;
-    // this.props.getStockInfo(stock);
+    const laneId = this.state.lane || 1;
+    const cardId = v4();
+
+    this.props.getStockInfo(stock, laneId, cardId);
   }
 
   renderInputForm(event) {
@@ -194,7 +188,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getWeather(query, units, laneId, cardId));
   },
   getStockInfo(stock) {
-    dispatch(getStock(stock));
+    dispatch(getStockInfo(stock, laneId, cardId));
   },
   getCurrencyInfo(currencySymbol) {
     dispatch(getCurrency(currencySymbol));
