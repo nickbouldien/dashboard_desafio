@@ -17,11 +17,6 @@ const configureStore = () => {
     )
   );
 
-  // store.subscribe(() => {
-  //   console.log('current: ', store.getState());
-  //   saveState(store.getState());
-  // });
-
   store.subscribe(throttle(() => {
     console.log('current state (store.js): ', store.getState());
     saveState({

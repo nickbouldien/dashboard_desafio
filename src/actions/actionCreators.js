@@ -71,8 +71,9 @@ export function getWeather(queryCity, units="I", laneId, cardId) {
 
       const response = res && res.data && res.data.data && res.data.data[0];
       if (response) {
+        response.id = cardId;
         dispatch(fetchWeather(response));
-        dispatch(attachToLane(laneId, cardId))
+        dispatch(attachToLane(laneId, cardId));
       } else {
         // nb???
         throw new Error("not a valid city")

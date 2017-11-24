@@ -54,8 +54,6 @@ class Lane extends Component {
   // }
 
   render() {
-    // const props = this.props;
-
     const { connectDropTarget, lane, laneCards, className } = this.props;
     const laneId = lane.id;
 
@@ -87,6 +85,13 @@ Lane.propTypes = {
   className: PropTypes.string,
 };
 
+const mapStateToProps = (state, ownProps) => ({
+  laneCards: ownProps.lane.cards
+  .map(id => state.weather[
+    state.weather.findIndex(card => card.id === id)
+  ]).filter(card => card)
+});
+
 const mapDispatchToProps = (dispatch) => ({
   attachToLane(targetPropsLaneId, sourceId) {
     dispatch(attachToLane(targetPropsLaneId, sourceId));
@@ -97,12 +102,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default compose(
-  connect((state, props) => ({
-    // TODO: change weatherReducer to "cards"
-    laneCards: props.lane.cards.map(id => state.weather[
-      state.weather.findIndex(card => card.id === id)
-    ]).filter(card => card)
-  }), mapDispatchToProps),
+  connect((state, ownProps) => mapStateToProps, mapDispatchToProps),
   DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()
   }))
