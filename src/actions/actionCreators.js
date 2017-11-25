@@ -27,9 +27,6 @@ const WEATHER_KEY = process.env.WEATHER_KEY || '2c6d4627538f4d09bf0bf753cab3e0d3
 // joke?
 // event?  https://developer.ticketmaster.com/products-and-docs/apis/getting-started/
 
-// console.log('the weather key: ', WEATHER_KEY, 'REACT_APP_WEATHER_KEY is: ', process.env.REACT_APP_WEATHER_KEY);
-
-
 /* make a default error handler (for not auth, just routine errors) */
 export function applicationError(error) {
   return {

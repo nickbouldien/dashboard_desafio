@@ -21,7 +21,8 @@ const configureStore = () => {
     console.log('current state (store.js): ', store.getState());
     saveState({
       weather: store.getState().weather,
-      laneReducer: store.getState().laneReducer
+      laneReducer: store.getState().laneReducer,
+      stocks: store.getState().stocks
     });
   }), 1000);
 

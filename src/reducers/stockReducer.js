@@ -1,11 +1,19 @@
 import { FETCH_STOCK, APP_ERROR } from '../actions/actionTypes';
+import { goog_stock, aapl_stock } from '../mockData';
 
-const stockReducer = (state = {error: '', stock: {}}, action) => {
+const initialState = [
+  goog_stock,
+  aapl_stock
+];
+
+
+const stockReducer = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_STOCK:
-      return { ...state, error: '', stock: action.payload }
-    case APP_ERROR:
-      return { ...state, error: action.payload }
+      const newStock = action.payload;
+      // return { ...state, error: '', stock: action.payload }
+      console.log('stockReducer state', [...state, newStock]);
+      return [...state, newStock]
     default:
       return state;
   }

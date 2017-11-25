@@ -30,6 +30,7 @@ export const sf_weather = {
 }
 
 export const goog_stock = {
+  id: 'mockStock_GOOG',
   companyName: 'Alphabet Inc.',
   symbol: 'GOOG',
   latestTime: '3:56:06 PM',
@@ -41,4 +42,29 @@ export const goog_stock = {
   week52Low: 737.0245,
   ytdChange: 0.2963217,
   sector: 'Technology'
+}
+
+export const aapl_stock = {
+  id: 'mockStock_AAPL',
+  companyName: 'Apple co.',
+  symbol: 'AAPL',
+  latestTime: '1:41:46 PM',
+  latestPrice: 1018.67,
+  change: -0.42,
+  marketCap: 707774066412,
+  avgTotalVolume: 1342756,
+  week52High: 1048.39,
+  week52Low: 737.0245,
+  ytdChange: 0.2963217,
+  sector: 'Technology'
+}
+
+export const number_1 = {
+  id: 'mockNumber_1',
+  number: 1
+}
+
+export const number_7 = {
+  id: 'mockNumber_7',
+  number: 7
 }

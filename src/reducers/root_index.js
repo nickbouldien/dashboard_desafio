@@ -9,12 +9,10 @@ import stockReducer from './stockReducer';
 import currencyReducer from './currencyReducer';
 import laneReducer from './laneReducer';
 
-// console.log('in root_index weather: ', weatherReducer);
-
 const rootReducer = combineReducers({
-  weather: weatherReducer, // need to change to cards (cardReducer)
+  weather: weatherReducer,
+  stocks: stockReducer,
   inputReducer,
-  stockReducer,
   currencyReducer,
   laneReducer
   // auth: authReducer,
