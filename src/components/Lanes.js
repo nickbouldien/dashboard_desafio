@@ -2,7 +2,7 @@ import React from 'react';
 import Lane from './Lane';
 import PropTypes from 'prop-types';
 
-const Lanes = ({lanes}) => {
+const Lanes = ({ lanes }) => {
   return (
     <div className='lanes'>
       {

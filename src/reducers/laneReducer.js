@@ -4,16 +4,20 @@ import { DETACH_FROM_LANE, ATTACH_TO_LANE, UPDATE_LANE, MOVE } from '../actions/
 const initialState = [
   {
     id: 1,
-    name: 'lane 1',
+    name: 'Lane 1',
     cards: [
       'mockWeather_SF',
-      'mockWeather_MEM'
+      'mockWeather_MEM',
+      "mockStock_AAPL"
     ]
   },
   {
     id: 2,
-    name: 'lane 2',
-    cards: ["mockWeather_NY"]
+    name: 'Lane 2',
+    cards: [
+      "mockWeather_NY",
+      "mockStock_GOOG"
+    ]
   },
   {
     id: 3,

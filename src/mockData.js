@@ -6,7 +6,8 @@ export const ny_weather = {
   app_temp: 47,
   precip: 0.2,
   wind_spd: 17.3,
-  wind_dir: 260
+  wind_dir: 260,
+  type: 'weather'
 }
 
 export const memphis_weather = {
@@ -16,7 +17,8 @@ export const memphis_weather = {
   app_temp: 71,
   precip: 0.3,
   wind_spd: 11.3,
-  wind_dir: 177
+  wind_dir: 177,
+  type: 'weather'
 }
 
 export const sf_weather = {
@@ -26,7 +28,8 @@ export const sf_weather = {
   app_temp: 48,
   precip: 0.09,
   wind_spd: 14.7,
-  wind_dir: 8
+  wind_dir: 8,
+  type: 'weather'
 }
 
 export const goog_stock = {
@@ -41,7 +44,8 @@ export const goog_stock = {
   week52High: 1048.39,
   week52Low: 737.0245,
   ytdChange: 0.2963217,
-  sector: 'Technology'
+  sector: 'Technology',
+  type: 'stock'
 }
 
 export const aapl_stock = {
@@ -56,15 +60,18 @@ export const aapl_stock = {
   week52High: 1048.39,
   week52Low: 737.0245,
   ytdChange: 0.2963217,
-  sector: 'Technology'
+  sector: 'Technology',
+  type: 'stock'
 }
 
 export const number_1 = {
   id: 'mockNumber_1',
-  number: 1
+  number: 1,
+  type: 'randomNumber'
 }
 
 export const number_7 = {
   id: 'mockNumber_7',
-  number: 7
+  number: 7,
+  type: 'randomNumber'
 }

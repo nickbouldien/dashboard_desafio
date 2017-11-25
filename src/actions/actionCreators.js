@@ -58,7 +58,7 @@ export function fetchWeather(weather) {
   return { type: FETCH_WEATHER, payload: weather };
 }
 
-export function getWeather(queryCity, units="I", laneId, cardId) {
+export function getWeather(queryCity, units="I", laneId, cardId, type) {
   const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}&units=${units}`;
   console.log('getWeather called: ', laneId, cardId);
   return (dispatch) => {
@@ -69,6 +69,7 @@ export function getWeather(queryCity, units="I", laneId, cardId) {
       const response = res && res.data && res.data.data && res.data.data[0];
       if (response) {
         response.id = cardId;
+        response.type = type;
         dispatch(fetchWeather(response));
         dispatch(attachToLane(laneId, cardId));
       } else {
@@ -91,17 +92,21 @@ export function fetchStock(stockData) {
   return { type: FETCH_STOCK, payload: stockData };
 }
 
-export function getStock(stockSymbol = 'AMZN') {
+export function getStock(stockSymbol = 'AMZN',laneId, cardId, type) {
   const STOCK_URL = `https://api.iextrading.com/1.0/stock/${stockSymbol}/quote`;
-  // console.log('getStock called: ', WEATHER_URL);
+  console.log('getStock called: ', STOCK_URL, laneId, cardId, type);
   return (dispatch) => {
     axios.get(STOCK_URL)
     .then((res) => {
-      console.log('stock response is: ', res.data);
 
       // const response = res && res.data && res.data.data && res.data.data[0];
       if (res) {
+        res.data.id = cardId;
+        res.data.type = type;
+        console.log('stock response is: ', res.data);
+
         dispatch(fetchStock(res.data));
+        dispatch(attachToLane(laneId, cardId));
       }
     })
     .catch((error) => {
@@ -127,6 +132,7 @@ export function getCurrency(currencySymbol='USD') {
     .then((res) => {
       // console.log('currency res is: ', res.data);
       dispatch(fetchCurrency(res.data));
+      dispatch(attachToLane(laneId, cardId));
     })
     .catch((error) => {
       dispatch(applicationError(error));

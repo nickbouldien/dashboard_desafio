@@ -39,7 +39,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.fetchCurrency();
+    // this.fetchCurrency();
   }
 
   fetchCurrency() {
@@ -51,17 +51,17 @@ class Dashboard extends Component {
     const units = "I";
     const laneId = this.state.lane || 1;
     const cardId = v4();
-
-    this.props.getWeatherForCity(query, units, laneId, cardId);
+    const type = "weather";
+    this.props.getWeatherForCity(query, units, laneId, cardId, type);
   }
-
 
   fetchStockData() {
     const stock = this.props.searchTerm;
     const laneId = this.state.lane || 1;
     const cardId = v4();
+    const type = "stock";
 
-    this.props.getStockInfo(stock, laneId, cardId);
+    this.props.getStockInfo(stock, laneId, cardId, type);
   }
 
   renderInputForm(event) {
@@ -129,24 +129,6 @@ class Dashboard extends Component {
 
         <Lanes lanes={lanes} />
 
-        {/* <InputForm submitFn={this.fetchWeatherData} inputType={"text"} placeholder={"Enter city"} />
-        <br />
-        <br />
-        <InputForm submitFn={this.fetchStockData} inputType={"text"} placeholder={"Enter stock symbol"} /> */}
-
-        {/* { weather && city && <WeatherCard weather={weather} city={city} color={'gray'} /> } */}
-
-        {/* w/ mock data */}
-        {/* <WeatherCard weather={ny_weather} city={ny_weather.city_name} color={'lightgray'} /> */}
-
-
-        {/* { stockData && ( Object.keys(stockData.stock).length > 0 ) && <StockCard stock={stockData.stock} color={'lightblue'} /> } */}
-
-        {/* <StockCard stock={goog_stock} color={'salmon'} /> */}
-
-        {/* { currencyData && ( Object.keys(currencyData.currency).length > 0 ) && <CurrencyCard currencyData={currencyData.currency} color={'green'} /> } */}
-
-
       </div>
     )
   }
@@ -184,11 +166,11 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getWeatherForCity(query, units, laneId, cardId) {
-    dispatch(getWeather(query, units, laneId, cardId));
+  getWeatherForCity(query, units, laneId, cardId, type) {
+    dispatch(getWeather(query, units, laneId, cardId, type));
   },
-  getStockInfo(stock) {
-    dispatch(getStockInfo(stock, laneId, cardId));
+  getStockInfo(stock, laneId, cardId, type) {
+    dispatch(getStock(stock, laneId, cardId, type));
   },
   getCurrencyInfo(currencySymbol) {
     dispatch(getCurrency(currencySymbol));

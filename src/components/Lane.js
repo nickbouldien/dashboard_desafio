@@ -61,12 +61,31 @@ Lane.propTypes = {
   className: PropTypes.string,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  laneCards: ownProps.lane.cards
-  .map(id => state.weather[
-    state.weather.findIndex(card => card.id === id)
-  ]).filter(card => card)
-});
+const mapStateToProps = (state, ownProps) => {
+  let laneCards = [];
+  const weatherCards = ownProps.lane.cards
+    .map(id => state.weather[
+      state.weather.findIndex(card => card.id === id)
+    ]).filter(card => card);
+
+  const stockCards = ownProps.lane.cards
+    .map(id => state.stocks[
+      state.stocks.findIndex(card => card.id === id)
+    ]).filter(card => card);
+
+  const nick = laneCards.concat(weatherCards);
+  const laneCardsFinal = nick.concat(stockCards);
+
+  // return concatenated laneCards that contains all (weather/stock) data for cards
+  return { laneCards: laneCardsFinal }
+}
+
+// ({
+//   laneCards: ownProps.lane.cards
+//     .map(id => state.weather[
+//       state.weather.findIndex(card => card.id === id)
+//     ]).filter(card => card)
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   attachToLane(targetPropsLaneId, sourceId) {

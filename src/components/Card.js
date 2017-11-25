@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
+import RenderCard from './RenderCard';
 import ItemTypes from '../constants/itemTypes';
 
 const cardSource = {
@@ -32,16 +33,16 @@ class Card extends Component {
     const { connectDragSource, connectDropTarget, isDragging,
       onMove, id, editing, ...props } = this.props;
 
-    // console.log('Card props, ', this.props);
+    console.log('Card props, ', this.props);
     const dragSource = editing ? a => a : connectDragSource;
 
     return dragSource(connectDropTarget(
       <div className='card-div' style={{
         opacity: isDragging ? 0.3 : 1
       }}>
-        <h4>{props.cardData.city_name}</h4>
-        <p>temp: {props.cardData.temp}</p>
-        <p>app temp: {props.cardData.app_temp}</p>
+      
+        <RenderCard type={props.cardData.type} data={props.cardData} />
+
       </div>
     ));
   }

@@ -1,11 +1,10 @@
-import { FETCH_STOCK, APP_ERROR } from '../actions/actionTypes';
+import { FETCH_STOCK } from '../actions/actionTypes';
 import { goog_stock, aapl_stock } from '../mockData';
 
 const initialState = [
   goog_stock,
   aapl_stock
 ];
-
 
 const stockReducer = (state = initialState, action) => {
   switch(action.type) {
