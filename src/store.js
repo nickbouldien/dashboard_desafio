@@ -18,11 +18,12 @@ const configureStore = () => {
   );
 
   store.subscribe(throttle(() => {
-    console.log('current state (store.js): ', store.getState());
+    // console.log('current state (store.js): ', store.getState());
     saveState({
       weather: store.getState().weather,
       laneReducer: store.getState().laneReducer,
-      stocks: store.getState().stocks
+      stocks: store.getState().stocks,
+      currencies: store.getState().currencies
     });
   }), 1000);
 

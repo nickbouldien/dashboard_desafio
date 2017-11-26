@@ -43,7 +43,7 @@ class Dashboard extends Component {
   }
 
   fetchCurrency() {
-    const currencySymbol = "USD";
+    const currencySymbol = this.props.searchTerm || "USD";
     const laneId = this.state.lane || 1;
     const cardId = v4();
     const type = "currency";

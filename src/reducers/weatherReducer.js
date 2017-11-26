@@ -13,7 +13,9 @@ const weatherReducer = (state = initialState, action) => {
     case FETCH_WEATHER:
       const newWeather = action.payload;
       console.log('weatherReducer state', [...state, newWeather]);
-      return [...state, newWeather]
+      return [...state, newWeather];
+    // case APP_ERROR:
+    //   return [...state, newWeather];
     default:
       return state;
   }

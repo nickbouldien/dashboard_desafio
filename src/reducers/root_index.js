@@ -14,7 +14,8 @@ const rootReducer = combineReducers({
   stocks: stockReducer,
   currencies: currencyReducer,
   inputReducer,
-  laneReducer
+  laneReducer,
+  // error: errorReducer,
   // auth: authReducer,
   // searchTerm,
   // locations

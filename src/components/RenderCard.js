@@ -5,7 +5,7 @@ import Card from './Card';
 import { move } from '../actions/actionCreators';
 
 const RenderCard = ({ type, data }) => {
-  console.log('RenderCard data', data);
+  // console.log('RenderCard data', data);
   let cardToRender;
 
   switch(type.toLowerCase()) {
@@ -30,7 +30,20 @@ const RenderCard = ({ type, data }) => {
     case 'currency':
       cardToRender = (
         <div>
-          <h4>currency card</h4>
+          <h4>Currency comparison for: {data.base}</h4>
+          <h5>Date: {data.date}</h5>
+          <p>AUD: {data.rates.AUD}</p>
+          <p>CAD: {data.rates.CAD}</p>
+          <p>BRL: {data.rates.BRL}</p>
+          <p>GBP: {data.rates.GBP}</p>
+          <p>EUR: {data.rates.EUR}</p>
+        </div>
+      );
+      return cardToRender;
+    case 'number':
+      cardToRender = (
+        <div>
+          <h4>number card</h4>
         </div>
       );
       return cardToRender;
