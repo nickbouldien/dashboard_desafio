@@ -33,7 +33,7 @@ class Lane extends Component {
     const { connectDropTarget, lane, laneCards, className } = this.props;
     const laneId = lane.id;
 
-    console.log('Lane props ', this.props, 'laneId ', laneId);
+    // console.log('Lane props ', this.props, 'laneId ', laneId);
 
     return connectDropTarget(
       <div className={className}>
@@ -54,7 +54,7 @@ class Lane extends Component {
 }
 
 Lane.propTypes = {
-  // connectDropTarget: PropTypes.function.isRequired,
+  connectDropTarget: PropTypes.func,
   // attachToLane: PropTypes.function.isRequired,
   lane: PropTypes.object,
   laneCards: PropTypes.array,
@@ -73,11 +73,16 @@ const mapStateToProps = (state, ownProps) => {
       state.stocks.findIndex(card => card.id === id)
     ]).filter(card => card);
 
-  const nick = laneCards.concat(weatherCards);
-  const laneCardsFinal = nick.concat(stockCards);
+  const currencyCards = ownProps.lane.cards
+    .map(id => state.currencies[
+      state.currencies.findIndex(card => card.id === id)
+    ]).filter(card => card);
+
+  laneCards = [...weatherCards, ...stockCards, ...currencyCards];
+  // console.log('laneCards are: ', laneCards);
 
   // return concatenated laneCards that contains all (weather/stock) data for cards
-  return { laneCards: laneCardsFinal }
+  return { laneCards: laneCards }
 }
 
 // ({

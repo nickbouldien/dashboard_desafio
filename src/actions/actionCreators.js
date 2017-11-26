@@ -124,13 +124,15 @@ export function fetchCurrency(currencyData) {
   return { type: FETCH_CURRENCY, payload: currencyData };
 }
 
-export function getCurrency(currencySymbol='USD') {
+export function getCurrency(currencySymbol='USD', laneId, cardId, type) {
   const CURRENCY_URL = `https://api.fixer.io/latest?base=${currencySymbol}`;
   // console.log('getWeather called: ', WEATHER_URL);
   return (dispatch) => {
     axios.get(CURRENCY_URL)
     .then((res) => {
-      // console.log('currency res is: ', res.data);
+      res.data.id = cardId;
+      res.data.type = type;
+      console.log('currency res is: ', res.data);
       dispatch(fetchCurrency(res.data));
       dispatch(attachToLane(laneId, cardId));
     })

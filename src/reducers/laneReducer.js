@@ -21,7 +21,7 @@ const initialState = [
   },
   {
     id: 3,
-    name: 'Delete',
+    name: 'Lane 3',
     cards: []
   }
 ];

@@ -27,6 +27,13 @@ const RenderCard = ({ type, data }) => {
         </div>
       );
       return cardToRender;
+    case 'currency':
+      cardToRender = (
+        <div>
+          <h4>currency card</h4>
+        </div>
+      );
+      return cardToRender;
     default:
       return null;
   }

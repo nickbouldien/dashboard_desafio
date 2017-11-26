@@ -12,8 +12,8 @@ import laneReducer from './laneReducer';
 const rootReducer = combineReducers({
   weather: weatherReducer,
   stocks: stockReducer,
+  currencies: currencyReducer,
   inputReducer,
-  currencyReducer,
   laneReducer
   // auth: authReducer,
   // searchTerm,

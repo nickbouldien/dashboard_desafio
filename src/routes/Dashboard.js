@@ -43,7 +43,11 @@ class Dashboard extends Component {
   }
 
   fetchCurrency() {
-    this.props.getCurrencyInfo();
+    const currencySymbol = "USD";
+    const laneId = this.state.lane || 1;
+    const cardId = v4();
+    const type = "currency";
+    this.props.getCurrencyInfo(currencySymbol, laneId, cardId, type);
   }
 
   fetchWeatherData() {
@@ -90,6 +94,13 @@ class Dashboard extends Component {
           input: 'number',
           placeholder: '0'
         });
+      case 'currency':
+        return this.setState({
+          inputType: event.target.value,
+          submitFuction: this.fetchCurrency,
+          input: 'text',
+          placeholder: 'Enter a currency'
+        });
       default:
         return;
     }
@@ -118,6 +129,7 @@ class Dashboard extends Component {
           <select value={this.state.inputType} name='select' onChange={this.renderInputForm}>
             <option value='weather'>Weather</option>
             <option value='stock'>Stock</option>
+            <option value='currency'>Currency</option>
             <option value='other'>Other</option>
           </select>
           <InputForm
@@ -172,8 +184,8 @@ const mapDispatchToProps = (dispatch) => ({
   getStockInfo(stock, laneId, cardId, type) {
     dispatch(getStock(stock, laneId, cardId, type));
   },
-  getCurrencyInfo(currencySymbol) {
-    dispatch(getCurrency(currencySymbol));
+  getCurrencyInfo(currencySymbol, laneId, cardId, type) {
+    dispatch(getCurrency(currencySymbol, laneId, cardId, type));
   },
   attachToLane(targetPropsLaneId, sourceId) {
     dispatch(attachToLane(targetPropsLaneId, sourceId));
