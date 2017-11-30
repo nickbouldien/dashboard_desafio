@@ -1,4 +1,4 @@
-import { FETCH_WEATHER, APP_ERROR } from '../actions/actionTypes';
+import { FETCH_WEATHER, APP_ERROR, DELETE_WEATHER } from '../actions/actionTypes';
 import { ny_weather, memphis_weather, sf_weather } from '../mockData';
 
 const initialState = [
@@ -16,6 +16,10 @@ const weatherReducer = (state = initialState, action) => {
       return [...state, newWeather];
     // case APP_ERROR:
     //   return [...state, newWeather];
+    case DELETE_WEATHER:
+      console.log('DELETE_WEATHER action: ', action);
+      // return state.filter(card => card.id !== action.id);
+      return state;
     default:
       return state;
   }

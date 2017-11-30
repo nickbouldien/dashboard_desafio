@@ -12,7 +12,7 @@ const configureStore = () => {
     rootReducer,
     persistedState,
     compose(
-      applyMiddleware(thunk),
+      applyMiddleware(thunk), // enhancer
       typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
     )
   );

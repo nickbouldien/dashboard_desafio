@@ -21,9 +21,11 @@ const cardTarget = {
     const targetId = targetProps.id;
     const sourceProps = monitor.getItem();
     const sourceId = sourceProps.id;
+    console.log('targetprops', targetProps);
 
     if(sourceId !== targetId) {
-      targetProps.onMove({sourceId, targetId});
+      console.log('sourceId', sourceId, 'targetId', targetId);
+      targetProps.onMove({ sourceId, targetId });
     }
   }
 };
@@ -33,14 +35,14 @@ class Card extends Component {
     const { connectDragSource, connectDropTarget, isDragging,
       onMove, id, editing, ...props } = this.props;
 
-    console.log('Card props, ', this.props);
+    // console.log('Card props, ', this.props);
     const dragSource = editing ? a => a : connectDragSource;
 
     return dragSource(connectDropTarget(
       <div className='card-div' style={{
         opacity: isDragging ? 0.3 : 1
       }}>
-      
+
         <RenderCard type={props.cardData.type} data={props.cardData} />
 
       </div>

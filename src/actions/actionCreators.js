@@ -7,7 +7,8 @@ import {
   FETCH_CURRENCY,
   ATTACH_TO_LANE,
   DETACH_FROM_LANE,
-  MOVE
+  MOVE,
+  DELETE_WEATHER,
 } from './actionTypes';
 
 let ROOT_URL;
@@ -177,7 +178,15 @@ export function updateLane(updatedLane) {
   };
 }
 
-/* more concise */
+export function deleteWeather(id) {
+  return {
+    type: DELETE_WEATHER,
+    id
+  };
+}
+
+
+/* LANE actions more concise */
 // export const detachFromLane = (laneId, cardId) => ({
 //   type: DETACH_FROM_LANE,
 //   laneId,
@@ -194,6 +203,8 @@ export function updateLane(updatedLane) {
 //   type: UPDATE_LANE,
 //   ...updateLane
 // });
+
+
 
 
 

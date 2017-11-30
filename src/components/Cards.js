@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Card from './Card';
 import { move } from '../actions/actionCreators';
 
-const Cards = ({ cards, move /*, onValueClick, onDelete*/ }) => (
+const Cards = ({ cards, move /*, onValueClick*/, onDelete }) => (
   <div className='cards'>{cards.map((card) =>
     <Card
       className='card'
@@ -13,6 +13,7 @@ const Cards = ({ cards, move /*, onValueClick, onDelete*/ }) => (
       key={card.id}
       onMove={move}
       cardData={card}
+      onDelete={onDelete.bind(null, card.id)}
     />
     )}
   </div>
@@ -22,7 +23,7 @@ Cards.propTypes = {
   cards: PropTypes.array.isRequired,
   move: PropTypes.func.isRequired,
   // onValueClick: PropTypes.func,
-  // onDelete: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default connect(() => ({}), {

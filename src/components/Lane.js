@@ -28,7 +28,13 @@ const cardTarget = {
 };
 
 class Lane extends Component {
+  deleteCard(laneId, cardId, e) {
+    console.log('called deleteCard ', laneId, cardId, e);
+    e.stopPropagation();
 
+    // this.props.detachFromLane(laneId, cardId);
+    // this.props.deleteCard(cardId);
+  }
   render() {
     const { connectDropTarget, lane, laneCards, className } = this.props;
     const laneId = lane.id;
@@ -46,7 +52,7 @@ class Lane extends Component {
           cards={laneCards}
           // onValueClick={id => props.updateNote({ id, editing: true })}
           // onEdit={(id, task) => props.updateNote({ id, task, editing: false })}
-          // onDelete={(id, e) => this.deleteNote(laneId, id, e)}
+          onDelete={(id, e) => this.deleteCard(laneId, id, e)}
         />
       </div>
     );

@@ -19,9 +19,14 @@ const initialState = [
       "mockStock_GOOG"
     ]
   },
+  // {
+  //   id: 3,
+  //   name: 'Lane 3',
+  //   cards: []
+  // },
   {
-    id: 3,
-    name: 'Lane 3',
+    id: 'deleteLane',
+    name: 'Delete',
     cards: []
   }
 ];
