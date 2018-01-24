@@ -35,7 +35,6 @@ class Card extends Component {
     const { connectDragSource, connectDropTarget, isDragging,
       onMove, id, editing, ...props } = this.props;
 
-    // console.log('Card props, ', this.props);
     const dragSource = editing ? a => a : connectDragSource;
 
     return dragSource(connectDropTarget(

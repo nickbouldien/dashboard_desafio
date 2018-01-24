@@ -10,8 +10,6 @@ const stockReducer = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_STOCK:
       const newStock = action.payload;
-      // return { ...state, error: '', stock: action.payload }
-      console.log('stockReducer state', [...state, newStock]);
       return [...state, newStock]
     default:
       return state;

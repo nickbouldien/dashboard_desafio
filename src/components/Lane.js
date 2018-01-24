@@ -29,29 +29,19 @@ const cardTarget = {
 
 class Lane extends Component {
   deleteCard(laneId, cardId, e) {
-    console.log('called deleteCard ', laneId, cardId, e);
     e.stopPropagation();
-
-    // this.props.detachFromLane(laneId, cardId);
-    // this.props.deleteCard(cardId);
   }
   render() {
     const { connectDropTarget, lane, laneCards, className } = this.props;
     const laneId = lane.id;
 
-    // console.log('Lane props ', this.props, 'laneId ', laneId);
-
     return connectDropTarget(
       <div className={className}>
-        <div className='lane-header'
-          // onClick={() => props.updateLane({ id: laneId, editing: true })}
-          >
+        <div className='lane-header'>
           <h4>{lane.name}</h4>
         </div>
         <Cards
           cards={laneCards}
-          // onValueClick={id => props.updateNote({ id, editing: true })}
-          // onEdit={(id, task) => props.updateNote({ id, task, editing: false })}
           onDelete={(id, e) => this.deleteCard(laneId, id, e)}
         />
       </div>
@@ -61,7 +51,6 @@ class Lane extends Component {
 
 Lane.propTypes = {
   connectDropTarget: PropTypes.func,
-  // attachToLane: PropTypes.function.isRequired,
   lane: PropTypes.object,
   laneCards: PropTypes.array,
   className: PropTypes.string,
@@ -85,7 +74,6 @@ const mapStateToProps = (state, ownProps) => {
     ]).filter(card => card);
 
   laneCards = [...weatherCards, ...stockCards, ...currencyCards];
-  // console.log('laneCards are: ', laneCards);
 
   // return concatenated laneCards that contains all (weather/stock) data for cards
   return { laneCards: laneCards }

@@ -12,13 +12,12 @@ const configureStore = () => {
     rootReducer,
     persistedState,
     compose(
-      applyMiddleware(thunk), // enhancer
+      applyMiddleware(thunk),
       typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : f => f
     )
   );
 
   store.subscribe(throttle(() => {
-    // console.log('current state (store.js): ', store.getState());
     saveState({
       weather: store.getState().weather,
       laneReducer: store.getState().laneReducer,

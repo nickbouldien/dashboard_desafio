@@ -5,9 +5,6 @@ const errorReducer = (state = "", action) => {
     case APP_ERROR:
       const newError = action.payload;
       return { ...state, newError };
-    // case AUTH_ERROR:
-    //   const newError = action.payload;
-    //   return { ...state, newError };
     default:
       return state;
   }

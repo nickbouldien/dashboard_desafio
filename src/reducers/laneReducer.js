@@ -19,11 +19,6 @@ const initialState = [
       "mockStock_GOOG"
     ]
   },
-  // {
-  //   id: 3,
-  //   name: 'Lane 3',
-  //   cards: []
-  // },
   {
     id: 'deleteLane',
     name: 'Delete',
@@ -48,8 +43,6 @@ export default function lanes(state = initialState, action) {
     case ATTACH_TO_LANE:
       const laneId = action.laneId;
       const cardId = action.cardId;
-      // console.log('action laneId: ', laneId, ' cardId: ', cardId);
-      // this.props.attachToLane(laneId, cardId);
 
       return state.map(lane => {
         const index = lane.cards.indexOf(cardId);
@@ -62,15 +55,11 @@ export default function lanes(state = initialState, action) {
                 : []
           });
         }
-        // console.log('adding to lane? ', lane.id, laneId);
-
         if (lane.id === laneId) {
-          // console.log('adding to lane!!!', [...lane.cards, cardId], 'id: ', lane.id, laneId);
           return Object.assign({}, lane, {
             cards: [...lane.cards, cardId]
           });
         }
-
         return lane;
       });
 
@@ -124,7 +113,6 @@ export default function lanes(state = initialState, action) {
                   : []
             });
           }
-
           if (lane === targetLane) { // move card to target
             return Object.assign({}, lane, {
               cards: lane.cards
@@ -133,13 +121,10 @@ export default function lanes(state = initialState, action) {
                 .concat(lane.cards.slice(targetNoteIndex))
             });
           }
-
           return lane;
         });
       }
-
       return state;
-
     default:
       return state;
   }

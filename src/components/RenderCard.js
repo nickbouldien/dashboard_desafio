@@ -5,7 +5,6 @@ import Card from './Card';
 import { move } from '../actions/actionCreators';
 
 const RenderCard = ({ type, data }) => {
-  // console.log('RenderCard data', data);
   let cardToRender;
 
   switch(type.toLowerCase()) {
