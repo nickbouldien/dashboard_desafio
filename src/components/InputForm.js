@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Layout, Menu } from 'antd';
 import Spinner1 from '../components/Spinner1';
 import { setSearchTerm } from '../actions/actionCreators';
+import { Input, Button, Dropdown, Icon } from 'antd';
 
 const InputForm = (props) => {
 
@@ -11,14 +13,15 @@ const InputForm = (props) => {
 
   return (
     <div className='input-form-div' style={{ background: "gray" }}>
-      <input
+      <Input
         type={props.inputType}
         onChange={props.handleSearchTermChange}
         value={props.searchTerm}
         placeholder={props.placeholder}
       />
       <br />
-      <button onClick={props.submitFn}>Submit</button>
+
+      <Button type='primary' onClick={props.submitFn}>Submit</Button>
 
     </div>
   )

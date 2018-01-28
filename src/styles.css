@@ -58,12 +58,16 @@ body {
   overflow: auto;
 
   padding: 1em;
-
-  color: #efefef;
+  text-align: center;
+  
   background-color: #333;
 
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
+}
+
+.lane-header h4 {
+  color: #efefef;
 }
 
 .lane-name {

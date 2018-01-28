@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { v4 } from 'node-uuid';
+import { Input, Button, Dropdown, Icon, Menu } from 'antd';
 import { getWeather, getStock, getCurrency, attachToLane } from '../actions/actionCreators';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
@@ -23,12 +24,13 @@ class Dashboard extends Component {
     this.state = {
       lane: 1,
       weather: null,
-      data: null,
+      // data: null,
       inputType: 'weather',
       submitFuction: this.fetchWeatherData,
       input: 'text',
       placeholder: 'Enter a city'
     }
+    this.createUUID = this.createUUID.bind(this)
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
     this.fetchStockData = this.fetchStockData.bind(this);
     this.fetchCurrency = this.fetchCurrency.bind(this);
@@ -42,61 +44,66 @@ class Dashboard extends Component {
     // this.fetchCurrency();
   }
 
+  createUUID() {
+    return v4();
+  }
+
   fetchCurrency() {
-    const currencySymbol = this.props.searchTerm || "USD";
+    const currencySymbol = this.props.searchTerm || 'USD';
     const laneId = this.state.lane || 1;
-    const cardId = v4();
+    const cardId = this.createUUID();
     const type = "currency";
     this.props.getCurrencyInfo(currencySymbol, laneId, cardId, type);
   }
 
   fetchWeatherData() {
     const query = this.props.searchTerm;
+    if (query === "") { return; }
     const units = "I";
     const laneId = this.state.lane || 1;
-    const cardId = v4();
+    const cardId = this.createUUID();
     const type = "weather";
     this.props.getWeatherForCity(query, units, laneId, cardId, type);
   }
 
   fetchStockData() {
     const stock = this.props.searchTerm;
+    // if (stock === "") { return; }    
     const laneId = this.state.lane || 1;
-    const cardId = v4();
+    const cardId = this.createUUID();
     const type = "stock";
-
     this.props.getStockInfo(stock, laneId, cardId, type);
   }
 
   renderInputForm(event) {
-    event.preventDefault();
-    // console.log('called renderInputForm', event.target, event.target.value);
+    console.log("Dashboard renderInputForm: ", event);
+    // event.preventDefault();
 
-    switch(event.target.value) {
+    switch(event.key) { // can extract this elsewhere (make it easier to read here) nb???
       case 'weather':
         return this.setState({
-          inputType: event.target.value,
+          inputType: event.key,
           submitFuction: this.fetchWeatherData,
           input: 'text',
           placeholder: 'Enter a city'
         });
       case 'stock':
         return this.setState({
-          inputType: event.target.value,
+          inputType: event.key,
           submitFuction: this.fetchStockData,
           input: 'text',
           placeholder: 'Enter a stock symbol'
         });
       case 'other':
         return this.setState({
-          inputType: event.target.value,
+          inputType: event.key,
           submitFuction: this.testFunction,
           input: 'number',
           placeholder: '0'
         });
       case 'currency':
         return this.setState({
-          inputType: event.target.value,
+          inputType: event.key,
           submitFuction: this.fetchCurrency,
           input: 'text',
           placeholder: 'Enter a currency'
@@ -112,7 +119,19 @@ class Dashboard extends Component {
 
   render() {
     const { /*city,*/ weather, error, stockData, currencyData, lanes } = this.props;
-    console.log('Dashbaord props: ', this.props);
+    console.log('Dashboard props: ', this.props);
+
+    // TODO: destructure state to get necessary vars used below
+
+    //  value={this.state.inputType}
+    const menu = (
+      <Menu onClick={this.renderInputForm}>
+        <Menu.Item key='weather'>Weather</Menu.Item>
+        <Menu.Item key='stock'>Stock</Menu.Item>
+        <Menu.Item key='currency'>Currency</Menu.Item>
+      </Menu>
+    );
+
     return (
       <div id='dashboard-div'>
         <h1>Dashboard</h1>
@@ -122,16 +141,23 @@ class Dashboard extends Component {
             <code>
               { error.toString() }
             </code>
-          </pre>)
+          </pre>
+          )
         }
 
         <div>
-          <select value={this.state.inputType} name='select' onChange={this.renderInputForm}>
+          {/* <select value={this.state.inputType} name='select' onChange={this.renderInputForm}>
             <option value='weather'>Weather</option>
             <option value='stock'>Stock</option>
             <option value='currency'>Currency</option>
             <option value='other'>Other</option>
-          </select>
+          </select> */}
+          <Dropdown overlay={menu}>
+            <Button style={{ marginLeft: 8 }}>
+              Choose type to add <Icon type='down' />
+            </Button>
+          </Dropdown>
+
           <InputForm
             submitFn={this.state.submitFuction}
             inputType={this.state.input}
@@ -160,7 +186,7 @@ Dashboard.propTypes = {
   getWeatherForCity: PropTypes.func.isRequired,
   getStockInfo: PropTypes.func.isRequired,
   getCurrencyInfo: PropTypes.func.isRequired,
-  attachToLane: PropTypes.func.isRequired,
+  // attachToLane: PropTypes.func.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
