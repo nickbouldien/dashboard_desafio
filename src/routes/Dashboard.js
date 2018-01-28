@@ -116,11 +116,10 @@ class Dashboard extends Component {
 
   render() {
     const { /*city,*/ weather, error, stockData, currencyData, lanes } = this.props;
-    console.log('Dashboard props: ', this.props);
+    // console.log('Dashboard props: ', this.props);
 
     // TODO: destructure state to get necessary vars used below
 
-    //  value={this.state.inputType}
     const menu = (
       <Menu onClick={this.renderInputForm}>
         <Menu.Item key='weather'>Weather</Menu.Item>
@@ -146,12 +145,7 @@ class Dashboard extends Component {
         }
 
         <div>
-          {/* <select value={this.state.inputType} name='select' onChange={this.renderInputForm}>
-            <option value='weather'>Weather</option>
-            <option value='stock'>Stock</option>
-            <option value='currency'>Currency</option>
-            <option value='other'>Other</option>
-          </select> */}
+
           <Dropdown overlay={menu}>
             <Button style={{ marginLeft: 8 }}>
               Choose type to add <Icon type='down' />
@@ -163,6 +157,7 @@ class Dashboard extends Component {
             inputType={this.state.input}
             placeholder={this.state.placeholder}
           />
+
         </div>
 
         <Divider />
@@ -173,14 +168,9 @@ class Dashboard extends Component {
     )
   }
 }
-// optionalObjectWithShape: PropTypes.shape({
-//   color: PropTypes.string,
-//   fontSize: PropTypes.number
-// })
 
 Dashboard.propTypes = {
   weather: PropTypes.array,
-  // city: PropTypes.string,
   searchTerm: PropTypes.string,
   stockData: PropTypes.object,
   currencyData: PropTypes.object,
@@ -188,7 +178,6 @@ Dashboard.propTypes = {
   getWeatherForCity: PropTypes.func.isRequired,
   getStockInfo: PropTypes.func.isRequired,
   getCurrencyInfo: PropTypes.func.isRequired,
-  // attachToLane: PropTypes.func.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
@@ -197,7 +186,6 @@ Dashboard.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   weather: state.weather,
-  // city: state.weatherReducer.weather.city_name,
   stockData: state.stockReducer,
   currencyData: state.currencyReducer,
   error: state.weather.error,
@@ -222,10 +210,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 // export default DragDropContext(HTML5Backend)(Board); // DnD
 // export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+// connect( ({lanes}) => ({lanes}), {LaneActions} )
+
 // try the below
 export default compose(
   DragDropContext(HTML5Backend),
-  // connect( ({lanes}) => ({lanes}), {LaneActions} )
   connect(mapStateToProps, mapDispatchToProps)
 )(Dashboard);
 
