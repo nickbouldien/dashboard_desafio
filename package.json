@@ -1,6 +1,6 @@
 {
-  "name": "desafio_1",
-  "version": "0.8.0",
+  "name": "dashboard",
+  "version": "0.9.0",
   "description": "",
   "author": "nick bouldien",
   "license": "MIT",
@@ -34,6 +34,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
+    "dotenv-webpack": "^1.5.4",
     "express": "^4.16.2",
     "lodash": "^4.17.4",
     "node-uuid": "^1.4.8",

@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { v4 } from 'node-uuid';
-import { Input, Button, Dropdown, Icon, Menu } from 'antd';
+import { Input, Button, Dropdown, Icon, Menu, Divider } from 'antd';
 import { getWeather, getStock, getCurrency, attachToLane } from '../actions/actionCreators';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
-import CurrencyCard from '../components/CurrencyCard';
-import StockCard from '../components/StockCard';
+// import CurrencyCard from '../components/CurrencyCard';
+// import StockCard from '../components/StockCard';
 import Lanes from '../components/Lanes';
 import { ny_weather, goog_stock } from '../mockData';
 
@@ -24,7 +24,6 @@ class Dashboard extends Component {
     this.state = {
       lane: 1,
       weather: null,
-      // data: null,
       inputType: 'weather',
       submitFuction: this.fetchWeatherData,
       input: 'text',
@@ -34,7 +33,6 @@ class Dashboard extends Component {
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
     this.fetchStockData = this.fetchStockData.bind(this);
     this.fetchCurrency = this.fetchCurrency.bind(this);
-    // this.fetchJoke = this.fetchJoke.bind(this);
     this.renderInputForm = this.renderInputForm.bind(this);
     this.testFunction = this.testFunction.bind(this);
     this.state.submitFuction = this.state.submitFuction.bind(this)
@@ -68,7 +66,7 @@ class Dashboard extends Component {
 
   fetchStockData() {
     const stock = this.props.searchTerm;
-    // if (stock === "") { return; }    
+    if (stock === "") { return; }
     const laneId = this.state.lane || 1;
     const cardId = this.createUUID();
     const type = "stock";
@@ -76,8 +74,7 @@ class Dashboard extends Component {
   }
 
   renderInputForm(event) {
-    console.log("Dashboard renderInputForm: ", event);
-    // event.preventDefault();
+    // console.log("Dashboard renderInputForm: ", event);
 
     switch(event.key) { // can extract this elsewhere (make it easier to read here) nb???
       case 'weather':
@@ -134,7 +131,10 @@ class Dashboard extends Component {
 
     return (
       <div id='dashboard-div'>
-        <h1>Dashboard</h1>
+
+        <Divider />
+
+        <h3>Welcome to your dashboard</h3>
 
         { error && (
           <pre>
@@ -164,6 +164,8 @@ class Dashboard extends Component {
             placeholder={this.state.placeholder}
           />
         </div>
+
+        <Divider />
 
         <Lanes lanes={lanes} />
 

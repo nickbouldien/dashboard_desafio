@@ -20,10 +20,15 @@ const initialState = [
     ]
   },
   {
-    id: 'deleteLane',
-    name: 'Delete',
+    id: 3,
+    name: 'Lane 3',
     cards: []
   }
+  // ,{
+  //   id: 'deleteLane',
+  //   name: 'Lane 3',
+  //   cards: []
+  // }
 ];
 
 export default function lanes(state = initialState, action) {

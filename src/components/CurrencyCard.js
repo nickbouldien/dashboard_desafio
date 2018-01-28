@@ -9,12 +9,12 @@ const CurrencyCard = (props) => (
     {/* { console.log('currencyCard props', props) } */}
     <ul>
       {/* could loop through all of the comparisons, but there are about 20... */}
+      <li>USD: {props.currencyData.rates.USD}</li>      
       <li>CAD: {props.currencyData.rates.CAD}</li>
       <li>BRL: {props.currencyData.rates.BRL}</li>
       <li>GBP: {props.currencyData.rates.GBP}</li>
       <li>EUR: {props.currencyData.rates.EUR}</li>
       <li>AUD: {props.currencyData.rates.AUD}</li>
-
     </ul>
   </div>
 );

@@ -26,7 +26,6 @@ const cardTarget = {
     }
   }
 };
-
 class Lane extends Component {
   deleteCard(laneId, cardId, e) {
     e.stopPropagation();
@@ -73,6 +72,7 @@ const mapStateToProps = (state, ownProps) => {
       state.currencies.findIndex(card => card.id === id)
     ]).filter(card => card);
 
+  // FIXME: need to fix this (todo.txt bug - can't put card where you want to )
   laneCards = [...weatherCards, ...stockCards, ...currencyCards];
 
   // return concatenated laneCards that contains all (weather/stock) data for cards

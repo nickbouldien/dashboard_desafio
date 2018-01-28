@@ -15,11 +15,14 @@ let ROOT_URL;
 
 if (process.env.NODE_ENV === 'production') {
   ROOT_URL = '/';
+  console.log('production root url', ROOT_URL);
 } else {
-  ROOT_URL = 'http://localhost:3090/';
+  ROOT_URL = 'http://localhost:3000/';
+  console.log('dev mode root url: ', ROOT_URL);
+  console.log('weather key: ', process.env.WEATHER_KEY);
 }
 
-const WEATHER_KEY = process.env.WEATHER_KEY || '2c6d4627538f4d09bf0bf753cab3e0d3';
+const WEATHER_KEY = process.env.WEATHER_KEY;
 
 // apis to integrate:
 // stock
@@ -40,12 +43,10 @@ export function applicationError(error) {
       SEARCH actions
 */
 export function setSearchTerm(searchTerm) {
-  // console.log('setSearchTerm: ', searchTerm);
   return { type: SET_SEARCH_TERM, payload: searchTerm };
 }
 
 export function getSearchTerm(searchTerm, searchType) {
-  // console.log('getWeather called: ', WEATHER_URL);
   return (dispatch) => {
     dispatch(setSearchTerm(searchTerm, searchType));
   }
@@ -55,17 +56,16 @@ export function getSearchTerm(searchTerm, searchType) {
       WEATHER actions
 */
 export function fetchWeather(weather) {
-  // console.log('fetchLocations: ', locations);
   return { type: FETCH_WEATHER, payload: weather };
 }
 
 export function getWeather(queryCity, units="I", laneId, cardId, type) {
   const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}&units=${units}`;
-  console.log('getWeather called: ', laneId, cardId);
+  // console.log('getWeather called: ', laneId, cardId);
   return (dispatch) => {
     axios.get(WEATHER_URL)
     .then((res) => {
-      console.log('getWeather res is: ', res.data.data[0]);
+      // console.log('getWeather res is: ', res.data.data[0]);
 
       const response = res && res.data && res.data.data && res.data.data[0];
       if (response) {
@@ -75,7 +75,7 @@ export function getWeather(queryCity, units="I", laneId, cardId, type) {
         dispatch(attachToLane(laneId, cardId));
       } else {
         // nb???
-        throw new Error("not a valid city")
+        throw new Error("not a valid city");
       }
     })
     .catch((error) => {
@@ -89,7 +89,6 @@ export function getWeather(queryCity, units="I", laneId, cardId, type) {
       STOCK actions
 */
 export function fetchStock(stockData) {
-  // console.log('fetchStock ___: ', stockData);
   return { type: FETCH_STOCK, payload: stockData };
 }
 
@@ -104,8 +103,6 @@ export function getStock(stockSymbol = 'AMZN',laneId, cardId, type) {
       if (res) {
         res.data.id = cardId;
         res.data.type = type;
-        console.log('stock response is: ', res.data);
-
         dispatch(fetchStock(res.data));
         dispatch(attachToLane(laneId, cardId));
       }
@@ -118,22 +115,19 @@ export function getStock(stockSymbol = 'AMZN',laneId, cardId, type) {
 }
 
 /*
-      JOKE actions
+      CURRENCY actions
 */
 export function fetchCurrency(currencyData) {
-  // console.log('fetchLocations: ', locations);
   return { type: FETCH_CURRENCY, payload: currencyData };
 }
 
 export function getCurrency(currencySymbol='USD', laneId, cardId, type) {
   const CURRENCY_URL = `https://api.fixer.io/latest?base=${currencySymbol}`;
-  // console.log('getWeather called: ', WEATHER_URL);
   return (dispatch) => {
     axios.get(CURRENCY_URL)
     .then((res) => {
       res.data.id = cardId;
       res.data.type = type;
-      console.log('currency res is: ', res.data);
       dispatch(fetchCurrency(res.data));
       dispatch(attachToLane(laneId, cardId));
     })
@@ -148,7 +142,7 @@ export function getCurrency(currencySymbol='USD', laneId, cardId, type) {
       LANE actions
 */
 export function attachToLane(laneId, cardId) {
-  console.log('called attachToLane (actions)', laneId, cardId);
+  // console.log('called attachToLane (actions)', laneId, cardId);
   return {
     type: ATTACH_TO_LANE,
     laneId,

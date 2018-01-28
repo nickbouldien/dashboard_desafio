@@ -6,16 +6,18 @@ import Card from './Card';
 import { move } from '../actions/actionCreators';
 
 const Cards = ({ cards, move /*, onValueClick*/, onDelete }) => (
-  <div className='cards'>{cards.map((card) =>
-    <Card
-      className='card'
-      id={card.id}
-      key={card.id}
-      onMove={move}
-      cardData={card}
-      onDelete={onDelete.bind(null, card.id)}
-    />
-    )}
+  <div className='cards'>
+    {
+      cards.map((card) =>
+        <Card
+          className='card'
+          id={card.id}
+          key={card.id}
+          onMove={move}
+          cardData={card}
+          onDelete={onDelete.bind(null, card.id)} /* eslint react/jsx-no-bind: 0 */
+        />
+      )}
   </div>
 );
 

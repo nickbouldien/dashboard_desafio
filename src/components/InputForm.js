@@ -2,30 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Input, Button, Dropdown, Icon } from 'antd';
 import Spinner1 from '../components/Spinner1';
 import { setSearchTerm } from '../actions/actionCreators';
-import { Input, Button, Dropdown, Icon } from 'antd';
 
-const InputForm = (props) => {
-
-  // console.log('inputform props: ', props);
-
-  return (
-    <div className='input-form-div' style={{ background: "gray" }}>
-      <Input
-        type={props.inputType}
-        onChange={props.handleSearchTermChange}
-        value={props.searchTerm}
-        placeholder={props.placeholder}
-      />
-      <br />
-
-      <Button type='primary' onClick={props.submitFn}>Submit</Button>
-
-    </div>
-  )
-}
+const InputForm = (props) => [
+  <Input
+    type={props.inputType}
+    onChange={props.handleSearchTermChange}
+    value={props.searchTerm}
+    placeholder={props.placeholder}
+    style={{ width: 200, marginRight: 10, marginLeft: 10 }}
+    key={"inputform-input"}
+  />,
+  <Button type='primary' onClick={props.submitFn} key={"inputform-btn"}>Submit</Button>
+];
 
 InputForm.propTypes = {
   inputType: PropTypes.string.isRequired,

@@ -55,11 +55,14 @@ body {
 }
 
 .lane-header {
+  /* display: flex; */
   overflow: auto;
 
   padding: 1em;
   text-align: center;
-  
+  /* vertical-align: text-bottom; */
+  align-items: center;
+
   background-color: #333;
 
   border-top-left-radius: 0.5em;
@@ -68,6 +71,7 @@ body {
 
 .lane-header h4 {
   color: #efefef;
+  /* align-items: center; */
 }
 
 .lane-name {

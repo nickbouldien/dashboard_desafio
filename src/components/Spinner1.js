@@ -17,6 +17,6 @@ const Image = styled.img`
   height: auto;
 `;
 
-const Spinner1 = () => <Image src={spinnerImage} alt="loading indicator" />;
+const Spinner1 = () => <Image src={spinnerImage} alt='loading indicator' />;
 
 export default Spinner1;

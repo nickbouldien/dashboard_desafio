@@ -2,3 +2,5 @@ public/bundle.js
 node_modules/
 public/*bundle*
 *.bundle.js
+.env
+.flowconfig
