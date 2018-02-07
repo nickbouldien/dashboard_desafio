@@ -1,35 +1,35 @@
 import axios from 'axios';
 import {
   FETCH_WEATHER,
-  APP_ERROR
-  // AUTH_USER,
-  // UNAUTH_USER,
-  // AUTH_ERROR,
-  // FETCH_LOCATIONS,
-  // ADD_LOCATION,
-  // SET_SEARCH_TERM
+  APP_ERROR,
+  SET_SEARCH_TERM,
+  FETCH_STOCK,
+  FETCH_CURRENCY,
+  ATTACH_TO_LANE,
+  DETACH_FROM_LANE,
+  MOVE,
+  DELETE_WEATHER,
 } from './actionTypes';
 
 let ROOT_URL;
 
 if (process.env.NODE_ENV === 'production') {
   ROOT_URL = '/';
+  console.log('production root url', ROOT_URL);
 } else {
-  ROOT_URL = 'http://localhost:3090/';
+  ROOT_URL = 'http://localhost:3000/';
+  console.log('dev mode root url: ', ROOT_URL);
+  console.log('weather key: ', process.env.WEATHER_KEY);
 }
 
-const WEATHER_KEY = process.env.WEATHER_KEY || '2c6d4627538f4d09bf0bf753cab3e0d3';
+const WEATHER_KEY = process.env.WEATHER_KEY;
 
-// console.log('the weather key: ', WEATHER_KEY, 'REACT_APP_WEATHER_KEY is: ', process.env.REACT_APP_WEATHER_KEY);
-
-// console.log('actioncreators user ', user && JSON.parse(user) && JSON.parse(user).email);
-// let userEmail;
-// try {
-//   userEmail = user && JSON.parse(user) && JSON.parse(user).email;
-// } catch (err) {
-//   userEmail = null;
-// }
-
+// apis to integrate:
+// stock
+// weather
+// currency
+// joke?
+// event?  https://developer.ticketmaster.com/products-and-docs/apis/getting-started/
 
 /* make a default error handler (for not auth, just routine errors) */
 export function applicationError(error) {
@@ -40,45 +40,164 @@ export function applicationError(error) {
 }
 
 /*
+      SEARCH actions
+*/
+export function setSearchTerm(searchTerm) {
+  return { type: SET_SEARCH_TERM, payload: searchTerm };
+}
+
+export function getSearchTerm(searchTerm, searchType) {
+  return (dispatch) => {
+    dispatch(setSearchTerm(searchTerm, searchType));
+  }
+}
+
+/*
       WEATHER actions
 */
 export function fetchWeather(weather) {
-  // console.log('fetchLocations: ', locations);
   return { type: FETCH_WEATHER, payload: weather };
 }
 
-
-export function getWeather(queryCity, units="I") {
-
+export function getWeather(queryCity, units="I", laneId, cardId, type) {
   const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}&units=${units}`;
-
-  console.log('getWeather called: ', WEATHER_URL);
-
+  // console.log('getWeather called: ', laneId, cardId);
   return (dispatch) => {
-
     axios.get(WEATHER_URL)
     .then((res) => {
-      // console.log('response is: ', res.data);
-      console.log('response111 is: ', res.data.data[0]);
+      // console.log('getWeather res is: ', res.data.data[0]);
 
-        dispatch(fetchWeather(res.data.data[0]));
+      const response = res && res.data && res.data.data && res.data.data[0];
+      if (response) {
+        response.id = cardId;
+        response.type = type;
+        dispatch(fetchWeather(response));
+        dispatch(attachToLane(laneId, cardId));
+      } else {
+        // nb???
+        throw new Error("not a valid city");
+      }
     })
     .catch((error) => {
-        // dispatch(applicationError(error));
+      dispatch(applicationError(error));
       console.error("Error getting weather: ", error);  //eslint-disable-line no-console
     });
-
-      // axios.get(`${WEATHER_URL}${query}`)
-      // .then(response => {
-      //   console.log('the weather response ', response.data);
-      //   // if response.status === 200 {  } // .ok
-      //   dispatch(fetchWeather(response.data));
-      // })
-      // .catch(err => {
-      //   console.error("Error getting locations: ", err);  //eslint-disable-line no-console
-      // })
-    }
+  }
 }
+
+/*
+      STOCK actions
+*/
+export function fetchStock(stockData) {
+  return { type: FETCH_STOCK, payload: stockData };
+}
+
+export function getStock(stockSymbol = 'AMZN',laneId, cardId, type) {
+  const STOCK_URL = `https://api.iextrading.com/1.0/stock/${stockSymbol}/quote`;
+  console.log('getStock called: ', STOCK_URL, laneId, cardId, type);
+  return (dispatch) => {
+    axios.get(STOCK_URL)
+    .then((res) => {
+
+      // const response = res && res.data && res.data.data && res.data.data[0];
+      if (res) {
+        res.data.id = cardId;
+        res.data.type = type;
+        dispatch(fetchStock(res.data));
+        dispatch(attachToLane(laneId, cardId));
+      }
+    })
+    .catch((error) => {
+      dispatch(applicationError(error));
+      console.error("Error getting stock data: ", error);  //eslint-disable-line no-console
+    });
+  }
+}
+
+/*
+      CURRENCY actions
+*/
+export function fetchCurrency(currencyData) {
+  return { type: FETCH_CURRENCY, payload: currencyData };
+}
+
+export function getCurrency(currencySymbol='USD', laneId, cardId, type) {
+  const CURRENCY_URL = `https://api.fixer.io/latest?base=${currencySymbol}`;
+  return (dispatch) => {
+    axios.get(CURRENCY_URL)
+    .then((res) => {
+      res.data.id = cardId;
+      res.data.type = type;
+      dispatch(fetchCurrency(res.data));
+      dispatch(attachToLane(laneId, cardId));
+    })
+    .catch((error) => {
+      dispatch(applicationError(error));
+      console.error("Error getting currency data: ", error);  //eslint-disable-line no-console
+    });
+  }
+}
+
+/*
+      LANE actions
+*/
+export function attachToLane(laneId, cardId) {
+  // console.log('called attachToLane (actions)', laneId, cardId);
+  return {
+    type: ATTACH_TO_LANE,
+    laneId,
+    cardId
+  };
+}
+export function detachFromLane(laneId, cardId) {
+  return {
+    type: DETACH_FROM_LANE,
+    laneId,
+    cardId
+  };
+}
+
+export function move({ sourceId, targetId }) {
+  return {
+    type: MOVE,
+    sourceId,
+    targetId
+  };
+}
+
+export function updateLane(updatedLane) {
+  return {
+    type: UPDATE_LANE,
+    ...updatedLane
+  };
+}
+
+export function deleteWeather(id) {
+  return {
+    type: DELETE_WEATHER,
+    id
+  };
+}
+
+
+/* LANE actions more concise */
+// export const detachFromLane = (laneId, cardId) => ({
+//   type: DETACH_FROM_LANE,
+//   laneId,
+//   cardId
+// });
+
+// export const move = (laneId, cardId) => ({
+//   type: MOVE,
+//   sourceId,
+//   targetId
+// });
+
+// export const updateLane = (updatedLane) => ({
+//   type: UPDATE_LANE,
+//   ...updateLane
+// });
+
 
 
 
@@ -86,10 +205,6 @@ export function getWeather(queryCity, units="I") {
 /*
       MAP actions
 */
-// export function setSearchTerm(searchTerm) {
-//   console.log('setSearchTerm: ', searchTerm);
-//   return { type: SET_SEARCH_TERM, payload: searchTerm };
-// }
 //
 //
 // export function addedLocation() {

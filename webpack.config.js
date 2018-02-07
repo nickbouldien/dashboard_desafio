@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 // const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 
 const config = {
@@ -31,7 +32,14 @@ const config = {
   plugins: [ // https://webpack.js.org/plugins/
     // https://webpack.js.org/guides/hot-module-replacement/
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    
+    // TODO: add this to hide env vars
+    new Dotenv({ // https://www.npmjs.com/package/dotenv-webpack
+      path: './.env', // Path to .env file (this is the default) 
+      safe: false, // load .env.example (defaults to "false" which does not use dotenv-safe)
+      silent: false
+    })
     // new HtmlWebpackPlugin({ template: './public/index.html' })
 
     // new webpack.DefinePlugin({
@@ -39,10 +47,6 @@ const config = {
     //     'NODE_ENV': JSON.stringify('production')
     //   }
     // })
-
-    // TODO: add this to hide env vars
-    // https://www.npmjs.com/package/dotenv-webpack
-
   ],
   module: {
     rules: [
@@ -64,7 +68,6 @@ const config = {
        test: /\.(jpe?g|png|gif|svg)$/i,
        loader: "url-loader?name=/public/images/[name].[ext]"
      }
-
     //  { test: /\.png$/,
     //    loader: 'file'
     //  }

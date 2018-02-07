@@ -35,3 +35,53 @@ body {
   text-decoration: underline;
   color: inherit;
 }
+
+
+
+/*
+    LANE styles
+*/
+.lane {
+  display: inline-block;
+
+  margin: 1em;
+
+  background-color: #efefef;
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+
+  min-width: 20em;
+  vertical-align: top;
+}
+
+.lane-header {
+  /* display: flex; */
+  overflow: auto;
+
+  padding: 1em;
+  text-align: center;
+  /* vertical-align: text-bottom; */
+  align-items: center;
+
+  background-color: #333;
+
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+
+.lane-header h4 {
+  color: #efefef;
+  /* align-items: center; */
+}
+
+.lane-name {
+  float: left;
+}
+
+/*
+    CARD styles
+*/
+.card-div {
+  color: blue;
+  border: 1px solid black;
+}

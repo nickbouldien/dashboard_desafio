@@ -1,11 +1,20 @@
-import { FETCH_WEATHER, APP_ERROR } from '../actions/actionTypes';
+import { FETCH_WEATHER, APP_ERROR, DELETE_WEATHER } from '../actions/actionTypes';
+import { ny_weather, memphis_weather, sf_weather } from '../mockData';
 
-const weatherReducer = (state = {error: '', weather: {}}, action) => {
+const initialState = [
+  ny_weather,
+  memphis_weather,
+  sf_weather
+];
+
+const weatherReducer = (state = initialState, action) => {
   switch(action.type) {
     case FETCH_WEATHER:
-      return { ...state, error: '', weather: action.payload }
-    case APP_ERROR:
-      return { ...state, error: action.payload }
+      const newWeather = action.payload;
+      console.log('weatherReducer state', [...state, newWeather]);
+      return [...state, newWeather];
+    case DELETE_WEATHER:
+      return state;
     default:
       return state;
   }

@@ -2,17 +2,19 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import configureStore from './store';
 
 import Home from './routes/Home';
 import About from './routes/About';
 
-import Test from './routes/Test';
+import Dashboard from './routes/Dashboard';
 
 import Header from './components/Header';
-// import NoMatch from './components/NoMatch';
+import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 
 import './styles.css';
+
+const store = configureStore();
 
 
 const App = () => (
@@ -22,10 +24,10 @@ const App = () => (
         <Header />
         <div className='container'>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/' component={Dashboard} />
 
             <Route exact path='/about' component={About} />
-            <Route exact path='/test' component={Test} />
+            <Route exact path='/home' component={Home} />
 
             <Redirect to='/' />
           </Switch>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const WeatherCard = (props) => (
-  <div>
+  <div style={{ backgroundColor: props.color }}>
     <h3>Weather for: {props.city}</h3>
     <ul>
       {/* need to check for units so can display the units correctly after the values */}
@@ -19,5 +19,7 @@ const WeatherCard = (props) => (
 WeatherCard.propTypes = {
   weather: PropTypes.object.isRequired,
   city: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired
 };
+
 export default WeatherCard;
