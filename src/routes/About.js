@@ -9,9 +9,6 @@ const About = () => (
       <p>- <a href='https://webpack.github.io/'>Webpack 3</a> (too much fun to setup...)</p>
       <p>- <a href='https://react-bootstrap.github.io/'>React Bootstrap</a> (quick styling)</p>
 
-
-
-
     </div>
 
     <div>
