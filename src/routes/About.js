@@ -16,6 +16,16 @@ const apiData = [
   <a href='https://github.com/toddmotto/public-apis#currency-exchange'>github link</a>
 ];
 
+const todoData = [
+  "Implement 'Delete card' functionality ",
+  "Fix card index (location in array) bug",
+  "Have search/filter feature to show only cards with that data in title/body/etc.",
+  "More error displaying",
+  "Let user pick which lane to put new card in",
+  "Loading / spinner"
+];
+
+
 const About = () => (
   <div id='about-div'>
     <h1>About this project:</h1>
@@ -35,6 +45,15 @@ const About = () => (
       size={"large"}
       bordered
       dataSource={apiData}
+      renderItem={item => (<List.Item>{item}</List.Item>)}
+    />
+
+    <h3 style={{ margin: '16px 0' }}>Todo:</h3>
+
+    <List
+      size={"large"}
+      bordered
+      dataSource={todoData}
       renderItem={item => (<List.Item>{item}</List.Item>)}
     />
 
