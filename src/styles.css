@@ -85,3 +85,12 @@ body {
   color: blue;
   border: 1px solid black;
 }
+
+
+/* about */
+
+#about-div a {
+  text-decoration: none;
+  color: black;
+}
+
