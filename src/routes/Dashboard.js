@@ -13,8 +13,6 @@ import { getWeather, getStock, getCurrency, attachToLane } from '../actions/acti
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
-// import CurrencyCard from '../components/CurrencyCard';
-// import StockCard from '../components/StockCard';
 import Lanes from '../components/Lanes';
 import { ny_weather, goog_stock } from '../mockData';
 
@@ -116,7 +114,6 @@ class Dashboard extends Component {
 
   render() {
     const { /*city,*/ weather, error, stockData, currencyData, lanes } = this.props;
-    // console.log('Dashboard props: ', this.props);
 
     // TODO: destructure state to get necessary vars used below
 
@@ -208,28 +205,19 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-// export default DragDropContext(HTML5Backend)(Board); // DnD
-// export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
-// connect( ({lanes}) => ({lanes}), {LaneActions} )
 
-// try the below
 export default compose(
   DragDropContext(HTML5Backend),
   connect(mapStateToProps, mapDispatchToProps)
 )(Dashboard);
+
+
 
 // https://github.com/react-dnd/react-dnd/issues/373
 // export default compose(
 //   DropTarget(dragTypes, storyTarget, collect),
 //   connect(mapStateToProps)
 // )(StoryEditor);
-
-// export default connect(({lanes}) => ({
-//   lanes
-// }), {
-//   LaneActions
-// })(App)
-
 
 
 

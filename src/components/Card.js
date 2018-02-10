@@ -21,10 +21,10 @@ const cardTarget = {
     const targetId = targetProps.id;
     const sourceProps = monitor.getItem();
     const sourceId = sourceProps.id;
-    console.log('targetprops', targetProps);
+    // console.log('targetprops', targetProps);
 
     if(sourceId !== targetId) {
-      console.log('sourceId', sourceId, 'targetId', targetId);
+      // console.log('sourceId', sourceId, 'targetId', targetId);
       targetProps.onMove({ sourceId, targetId });
     }
   }

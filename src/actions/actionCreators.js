@@ -61,12 +61,9 @@ export function fetchWeather(weather) {
 
 export function getWeather(queryCity, units="I", laneId, cardId, type) {
   const WEATHER_URL = `https://api.weatherbit.io/v2.0/current?city=${queryCity}&key=${WEATHER_KEY}&units=${units}`;
-  // console.log('getWeather called: ', laneId, cardId);
   return (dispatch) => {
     axios.get(WEATHER_URL)
     .then((res) => {
-      // console.log('getWeather res is: ', res.data.data[0]);
-
       const response = res && res.data && res.data.data && res.data.data[0];
       if (response) {
         response.id = cardId;
@@ -74,7 +71,7 @@ export function getWeather(queryCity, units="I", laneId, cardId, type) {
         dispatch(fetchWeather(response));
         dispatch(attachToLane(laneId, cardId));
       } else {
-        // nb???
+        // TODO nb???
         throw new Error("not a valid city");
       }
     })
@@ -98,8 +95,6 @@ export function getStock(stockSymbol = 'AMZN',laneId, cardId, type) {
   return (dispatch) => {
     axios.get(STOCK_URL)
     .then((res) => {
-
-      // const response = res && res.data && res.data.data && res.data.data[0];
       if (res) {
         res.data.id = cardId;
         res.data.type = type;
@@ -142,7 +137,6 @@ export function getCurrency(currencySymbol='USD', laneId, cardId, type) {
       LANE actions
 */
 export function attachToLane(laneId, cardId) {
-  // console.log('called attachToLane (actions)', laneId, cardId);
   return {
     type: ATTACH_TO_LANE,
     laneId,
@@ -198,63 +192,6 @@ export function deleteWeather(id) {
 //   ...updateLane
 // });
 
-
-
-
-
-/*
-      MAP actions
-*/
-//
-//
-// export function addedLocation() {
-//   console.log('addedLocation:');
-//   return getLocations(); // better way of doing this? (probably). not using ADD_LOCATION...
-// }
-
-
-
-
-// export function addMap({ name, description, lng, lat, address  }) {
-//
-//   if (!name || !description || !lng || !lat || !address) {
-//     const err = "Location not filled out correctly";
-//     console.error('Add location error: ', err);
-//     // dispatch(applicationError(err));
-//     // throw new Error("Not good");
-//     return;
-//   }
-
-
-//   return function(dispatch) {
-//     axios.post(`${ROOT_URL}add-map`, {
-//       user, // needed nb???
-//       name,
-//       description,
-//       lng,
-//       lat,
-//       address
-//       // slug,
-//       // tags,
-//       // photo,
-//     }, {
-//       headers: { authorization: localStorage.getItem('token') }
-//   })
-//     .then(response => {
-//       console.log('the addmap response ', response);
-//       dispatch(addedLocation());
-//     })
-//     .catch(error => {
-//       console.log('error', error);
-//       try {
-//         const err = error && error.response && error.response.data && error.response.data.error;
-//         dispatch(authError(err));
-//       } catch(err2) {
-//         dispatch(authError("Error occured: ", JSON.stringify(err2)));
-//       }
-//     })
-//   }
-// }
 
 
 // export function logInUser({ email, password }, history) {

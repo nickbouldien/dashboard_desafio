@@ -3,14 +3,6 @@ import { Link } from 'react-router-dom';
 import { Image, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { List, Avatar } from 'antd';
 
-const linksToRender = () => [
-  // <Link to='about'>about</Link>, 
-  // <Link to='dashboard'>dashboard route</Link>,
-  // <a href='https://flow.org/en/docs/react/components/' target='_blank'>flow</a>
-  'NICK',
-  'jake',
-  'nathan'
-];
 
 const Home = () => (
   <div id='home-div'>
@@ -25,19 +17,6 @@ const Home = () => (
       <ListGroupItem><a href='https://flow.org/en/docs/react/components/' target='_blank'>flow</a></ListGroupItem>
 
     </ListGroup>
-
-    {/* <List
-      size='large'
-      header={<div>Links to the routes:</div>}
-      // footer={<div>Footer</div>}
-      // dataSource={linksToRender}
-      // renderItem={link => (<List.Item>{link}</List.Item>)}
-      renderItem={[   'NICK',
-                    'jake',
-                    'nathan'
-                ]
-      }
-    /> */}
 
     {/* <List
       itemLayout='horizontal'

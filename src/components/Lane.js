@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
 import Cards from './Cards';
 import ItemTypes from '../constants/itemTypes';
-import { detachFromLane, attachToLane /*, move*/ } from '../actions/actionCreators';
+import { detachFromLane, attachToLane } from '../actions/actionCreators';
 
 const cardTarget = {
   hover(targetProps, monitor) {
@@ -14,16 +14,13 @@ const cardTarget = {
     const sourceId = sourceProps.id;
 
     throttle(() => {
-      console.log('cardTarget in Lane ', targetProps, 't/f: ', !targetProps.lane.cards.length,
-          !targetProps.laneCards.length, 'sourceId: ', sourceId)}
-          , 1200);
-
-    if(!targetProps.lane.cards.length) {
-      targetProps.attachToLane(
-        targetProps.lane.id,
-        sourceId
-      );
-    }
+      if(!targetProps.lane.cards.length) {
+        targetProps.attachToLane(
+          targetProps.lane.id,
+          sourceId
+        );
+      }
+    })
   }
 };
 class Lane extends Component {
@@ -75,16 +72,8 @@ const mapStateToProps = (state, ownProps) => {
   // FIXME: need to fix this (todo.txt bug - can't put card where you want to )
   laneCards = [...weatherCards, ...stockCards, ...currencyCards];
 
-  // return concatenated laneCards that contains all (weather/stock) data for cards
   return { laneCards: laneCards }
 }
-
-// ({
-//   laneCards: ownProps.lane.cards
-//     .map(id => state.weather[
-//       state.weather.findIndex(card => card.id === id)
-//     ]).filter(card => card)
-// });
 
 const mapDispatchToProps = (dispatch) => ({
   attachToLane(targetPropsLaneId, sourceId) {
