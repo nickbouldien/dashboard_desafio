@@ -6,12 +6,10 @@ import configureStore from './store';
 
 import Home from './routes/Home';
 import About from './routes/About';
-
 import Dashboard from './routes/Dashboard';
-
 import Header from './components/Header';
-import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 
+import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 import './styles.css';
 
 const store = configureStore();

@@ -26,19 +26,18 @@ const initialState = [
   }
   // ,{
   //   id: 'deleteLane',
-  //   name: 'Lane 3',
+  //   name: 'Delete',
   //   cards: []
   // }
 ];
 
 export default function lanes(state = initialState, action) {
-  // console.log('laneReducer', action.type, action.laneId);
   switch (action.type) {
     case UPDATE_LANE:
       return state.map(lane => {
         if (lane.id === action.id) {
           const { type, ...updatedLane } = action;
-          console.log('laneReducer', Object.assign({}, lane, updatedLane));
+          // console.log('laneReducer', Object.assign({}, lane, updatedLane));
           return Object.assign({}, lane, updatedLane);
         }
 
@@ -84,12 +83,8 @@ export default function lanes(state = initialState, action) {
       const targetId = action.targetId;
 
       const lanes = state;
-      const sourceLane = lanes.filter(lane => {
-        return lane.cards.indexOf(sourceId) >= 0;
-      })[0];
-      const targetLane = lanes.filter(lane => {
-        return lane.cards.indexOf(targetId) >= 0;
-      })[0];
+      const sourceLane = lanes.filter(lane => lane.cards.indexOf(sourceId) >= 0 )[0];
+      const targetLane = lanes.filter(lane => lane.cards.indexOf(targetId) >= 0 )[0];
       const sourceNoteIndex = sourceLane.cards.indexOf(sourceId);
       const targetNoteIndex = targetLane.cards.indexOf(targetId);
 

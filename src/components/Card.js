@@ -21,10 +21,8 @@ const cardTarget = {
     const targetId = targetProps.id;
     const sourceProps = monitor.getItem();
     const sourceId = sourceProps.id;
-    // console.log('targetprops', targetProps);
 
     if(sourceId !== targetId) {
-      // console.log('sourceId', sourceId, 'targetId', targetId);
       targetProps.onMove({ sourceId, targetId });
     }
   }
@@ -55,13 +53,13 @@ Card.propTypes = {
   isDragging: PropTypes.bool.isRequired,
   onMove: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  editing: PropTypes.bool
+  editing: PropTypes.bool,
 };
 
 export default compose(
   DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   })),
   DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()

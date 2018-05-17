@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 import PropTypes from 'prop-types';
 import throttle from 'lodash/throttle';
-import Cards from './Cards';
 import ItemTypes from '../constants/itemTypes';
 import { detachFromLane, attachToLane } from '../actions/actionCreators';
+import Cards from './Cards';
 
 const cardTarget = {
   hover(targetProps, monitor) {
@@ -23,6 +23,7 @@ const cardTarget = {
     })
   }
 };
+
 class Lane extends Component {
   deleteCard(laneId, cardId, e) {
     e.stopPropagation();
