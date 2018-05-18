@@ -17,7 +17,7 @@ const cardTarget = {
       if(!targetProps.lane.cards.length) {
         targetProps.attachToLane(
           targetProps.lane.id,
-          sourceId
+          sourceId,
         );
       }
     })
@@ -35,7 +35,7 @@ class Lane extends Component {
     return connectDropTarget(
       <div className={className}>
         <div className='lane-header'>
-          <h4>{lane.name}</h4>
+          <h3>{lane.name}</h3>
         </div>
         <Cards
           cards={laneCards}
@@ -73,7 +73,7 @@ const mapStateToProps = (state, ownProps) => {
   // FIXME: need to fix this (todo.txt bug - can't put card where you want to )
   laneCards = [...weatherCards, ...stockCards, ...currencyCards];
 
-  return { laneCards: laneCards }
+  return { laneCards }
 }
 
 const mapDispatchToProps = (dispatch) => ({

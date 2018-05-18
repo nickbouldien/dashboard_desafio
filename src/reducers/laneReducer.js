@@ -8,7 +8,7 @@ const initialState = [
     cards: [
       'mockWeather_SF',
       'mockWeather_MEM',
-      "mockStock_AAPL"
+      "mockStock_AAPL",
     ]
   },
   {
@@ -16,14 +16,15 @@ const initialState = [
     name: 'Lane 2',
     cards: [
       "mockWeather_NY",
-      "mockStock_GOOG"
     ]
   },
   {
     id: 3,
     name: 'Lane 3',
-    cards: []
-  }
+    cards: [
+      "mockStock_GOOG"
+    ]
+  },
   // ,{
   //   id: 'deleteLane',
   //   name: 'Delete',
@@ -34,13 +35,13 @@ const initialState = [
 export default function lanes(state = initialState, action) {
   switch (action.type) {
     case UPDATE_LANE:
+      console.log('updating');
       return state.map(lane => {
         if (lane.id === action.id) {
           const { type, ...updatedLane } = action;
           // console.log('laneReducer', Object.assign({}, lane, updatedLane));
           return Object.assign({}, lane, updatedLane);
         }
-
         return lane;
       });
 
@@ -52,35 +53,53 @@ export default function lanes(state = initialState, action) {
         const index = lane.cards.indexOf(cardId);
 
         if (index >= 0) {
-          return Object.assign({}, lane, {
+          console.log('attaching');
+          return {
+            ...lane,
             cards:
               lane.cards.length > 1
                 ? lane.cards.slice(0, index).concat(lane.cards.slice(index + 1))
                 : []
-          });
+          }
+          // return Object.assign({}, lane, {
+          //   cards:
+          //     lane.cards.length > 1
+          //       ? lane.cards.slice(0, index).concat(lane.cards.slice(index + 1))
+          //       : []
+          // });
         }
         if (lane.id === laneId) {
-          return Object.assign({}, lane, {
-            cards: [...lane.cards, cardId]
-          });
+          return {
+            ...lane,
+            cards: [...lane.cards, cardId],
+          }
+          // return Object.assign({}, lane, {
+          //   cards: [...lane.cards, cardId]
+          // });
         }
         return lane;
       });
 
     case DETACH_FROM_LANE:
+      console.log('detach');
       return state.map(lane => {
         if (lane.id === action.laneId) {
-          return Object.assign({}, lane, {
-            cards: lane.cards.filter(id => id !== action.cardId)
-          });
+          return {
+            ...lane,
+            cards: lane.cards.filter(id => id !== action.cardId),
+          }
+          // return Object.assign({}, lane, {
+          //   cards: lane.cards.filter(id => id !== action.cardId)
+          // });
         }
-
         return lane;
       });
 
     case MOVE:
-      const sourceId = action.sourceId;
-      const targetId = action.targetId;
+      console.log('move');
+      const { sourceId, targetId } = action;
+      // const sourceId = action.sourceId;
+      // const targetId = action.targetId;
 
       const lanes = state;
       const sourceLane = lanes.filter(lane => lane.cards.indexOf(sourceId) >= 0 )[0];
@@ -114,12 +133,19 @@ export default function lanes(state = initialState, action) {
             });
           }
           if (lane === targetLane) { // move card to target
-            return Object.assign({}, lane, {
+            return {
+              ...lane,
               cards: lane.cards
-                .slice(0, targetNoteIndex)
-                .concat([sourceId])
-                .concat(lane.cards.slice(targetNoteIndex))
-            });
+              .slice(0, targetNoteIndex)
+              .concat([sourceId])
+              .concat(lane.cards.slice(targetNoteIndex))
+            }
+            // return Object.assign({}, lane, {
+            //   cards: lane.cards
+            //     .slice(0, targetNoteIndex)
+            //     .concat([sourceId])
+            //     .concat(lane.cards.slice(targetNoteIndex))
+            // });
           }
           return lane;
         });

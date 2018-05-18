@@ -1,3 +1,6 @@
+// extract axios get into a more abstract function
+// make "container" components
+
 // issue putting items where you want in a given lane (they are grouped...)
 
 // let user pick which lane to put new card in

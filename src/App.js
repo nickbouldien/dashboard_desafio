@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 
-import Home from './routes/Home';
-import About from './routes/About';
-import Dashboard from './routes/Dashboard';
+import Home from './components/Home';
+import About from './components/About';
+import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 
 import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'

@@ -16,7 +16,6 @@ const RenderCard = ({ type, data }) => {
           <p>app temp: {data.app_temp}</p>
         </Card>
       );
-
       return cardToRender;
     case 'stock':
       cardToRender = (

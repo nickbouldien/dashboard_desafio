@@ -8,7 +8,7 @@ import ItemTypes from '../constants/itemTypes';
 const cardSource = {
   beginDrag(props) {
     return {
-      id: props.id
+      id: props.id,
     };
   },
   isDragging(props, monitor) {
@@ -37,7 +37,8 @@ class Card extends Component {
 
     return dragSource(connectDropTarget(
       <div className='card-div' style={{
-        opacity: isDragging ? 0.3 : 1
+        opacity: isDragging ? 0.3 : 1,
+        color: isDragging ? 'blue' : 'grey',
       }}>
 
         <RenderCard type={props.cardData.type} data={props.cardData} />

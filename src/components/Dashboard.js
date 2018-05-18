@@ -14,6 +14,7 @@ import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
 import Lanes from '../components/Lanes';
+import ResetButton from '../components/ResetButton';
 import { ny_weather, goog_stock } from '../mockData';
 
 class Dashboard extends Component {
@@ -26,6 +27,7 @@ class Dashboard extends Component {
       submitFuction: this.fetchWeatherData,
       input: 'text',
       placeholder: 'Enter a city',
+      error: '',
     }
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
     this.fetchStockData = this.fetchStockData.bind(this);
@@ -33,6 +35,7 @@ class Dashboard extends Component {
     this.renderInputForm = this.renderInputForm.bind(this);
     this.testFunction = this.testFunction.bind(this);
     this.state.submitFuction = this.state.submitFuction.bind(this);
+    this.addError = this.addError.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +52,10 @@ class Dashboard extends Component {
 
   fetchWeatherData() {
     const query = this.props.searchTerm;
-    if (query === "") { return; }
+    if (query === "") { 
+      this.addError("You must enter a city.");  
+      return;
+    }
     const units = "I";
     const laneId = this.state.lane || 1;
     const cardId = this.createUUID();
@@ -59,11 +65,20 @@ class Dashboard extends Component {
 
   fetchStockData() {
     const stock = this.props.searchTerm;
-    if (stock === "") { return; }
+    if (stock === "") { 
+      this.addError("You must enter a stock.");  
+      return;
+    }
     const laneId = this.state.lane || 1;
     const cardId = this.createUUID();
     const type = "stock";
     this.props.getStockInfo(stock, laneId, cardId, type);
+  }
+
+  addError(message) {
+    this.setState({
+      error: message,
+    });
   }
 
   renderInputForm(event) {
@@ -132,6 +147,8 @@ class Dashboard extends Component {
           </pre>
           )
         }
+
+        <ResetButton />
 
         <div>
           <Dropdown overlay={menu}>
