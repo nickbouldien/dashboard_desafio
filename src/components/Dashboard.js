@@ -1,21 +1,14 @@
 // @flow
 import React, { Component } from 'react';
 import axios from 'axios';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import { Input, Button, Dropdown, Icon, Menu, Divider } from 'antd';
 import { createUUID } from '../utils';
-import { getWeather, getStock, getCurrency, attachToLane } from '../actions/actionCreators';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
 import InputForm from '../components/InputForm';
 import Lanes from '../components/Lanes';
 import ResetButton from '../components/ResetButton';
-import { ny_weather, goog_stock } from '../mockData';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -27,7 +20,7 @@ class Dashboard extends Component {
       submitFuction: this.fetchWeatherData,
       input: 'text',
       placeholder: 'Enter a city',
-      error: '',
+      err: '',
     }
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
     this.fetchStockData = this.fetchStockData.bind(this);
@@ -36,6 +29,7 @@ class Dashboard extends Component {
     this.testFunction = this.testFunction.bind(this);
     this.state.submitFuction = this.state.submitFuction.bind(this);
     this.addError = this.addError.bind(this);
+    this.removeError = this.removeError.bind(this);
   }
 
   componentDidMount() {
@@ -43,6 +37,7 @@ class Dashboard extends Component {
   }
 
   fetchCurrency() {
+    this.removeError();
     const currencySymbol = this.props.searchTerm || 'USD';
     const laneId = this.state.lane || 1;
     const cardId = createUUID();
@@ -51,6 +46,7 @@ class Dashboard extends Component {
   }
 
   fetchWeatherData() {
+    this.removeError();
     const query = this.props.searchTerm;
     if (query === "") { 
       this.addError("You must enter a city.");  
@@ -64,6 +60,7 @@ class Dashboard extends Component {
   }
 
   fetchStockData() {
+    this.removeError();
     const stock = this.props.searchTerm;
     if (stock === "") { 
       this.addError("You must enter a stock.");  
@@ -77,7 +74,13 @@ class Dashboard extends Component {
 
   addError(message) {
     this.setState({
-      error: message,
+      err: message,
+    });
+  }
+
+  removeError() {
+    this.setState({
+      err: '',
     });
   }
 
@@ -122,7 +125,7 @@ class Dashboard extends Component {
 
   render() {
     const { weather, error, stockData, currencyData, lanes } = this.props;
-    const { input, submitFuction, placeholder } = this.state;
+    const { input, submitFuction, placeholder, err } = this.state;
 
     const menu = (
       <Menu onClick={this.renderInputForm}>
@@ -139,13 +142,13 @@ class Dashboard extends Component {
 
         <h3>Welcome to your dashboard</h3>
 
-        { error && (
+        { error || err ? (
           <pre>
-            <code>
-              { error.toString() }
+            <code style={{ color: 'red' }}>
+              { error ? error.toString() : err.toString() }
             </code>
           </pre>
-          )
+          ) : null
         }
 
         <div>
@@ -189,36 +192,7 @@ Dashboard.propTypes = {
   ])
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  weather: state.weather,
-  stockData: state.stockReducer,
-  currencyData: state.currencyReducer,
-  error: state.weather.error,
-  searchTerm: state.inputReducer.searchTerm,
-  lanes: state.laneReducer
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getWeatherForCity(query, units, laneId, cardId, type) {
-    dispatch(getWeather(query, units, laneId, cardId, type));
-  },
-  getStockInfo(stock, laneId, cardId, type) {
-    dispatch(getStock(stock, laneId, cardId, type));
-  },
-  getCurrencyInfo(currencySymbol, laneId, cardId, type) {
-    dispatch(getCurrency(currencySymbol, laneId, cardId, type));
-  },
-  attachToLane(targetPropsLaneId, sourceId) {
-    dispatch(attachToLane(targetPropsLaneId, sourceId));
-  },
-});
-
-
-export default compose(
-  DragDropContext(HTML5Backend),
-  connect(mapStateToProps, mapDispatchToProps)
-)(Dashboard);
-
+export default Dashboard;
 
 
 // https://github.com/react-dnd/react-dnd/issues/373

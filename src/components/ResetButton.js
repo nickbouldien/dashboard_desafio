@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
-import { resetState } from '../utils/index';
+import { resetState } from '../utils';
 
-// need to also refresh page
+// TODO: need to also refresh page when clicked
 const ResetButton = () => (
   <Button onClick={resetState}>
     Reset
