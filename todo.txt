@@ -1,11 +1,8 @@
 // extract axios get into a more abstract function
-// make "container" components
 
-// issue putting items where you want in a given lane (they are grouped...)
+// make "container" components instead of putting everything in 
 
-// let user pick which lane to put new card in
-
-// make delete lane functional...
+// issue putting items where you want in a given lane (they are grouped by category...)
 
 // action type to reset the input box (resolve/fix in inputReducer.js)
 
@@ -13,10 +10,12 @@
 
 // loading/spinner
 
-// responsiveness of site (1 issue found with inputForm)
+// responsiveness of site (atleast 1 issue found with inputForm)
 
-
+// don't fetch duplicates of cities, currencies, etc.
 
 
 // stretch:
 // have search/filter feature to show only cards with that data in title/body/etc.
+// let user pick which lane to put new card in
+// make delete lane functional...

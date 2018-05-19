@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Lane from './Lane';
+// import Lane from './Lane';
+import LaneContainer from '../containers/LaneContainer';
 
 const Lanes = ({ lanes }) => {
   if(lanes.length === 0 ) { return <p>No data/lanes found</p> }
   return (
     <div className='lanes'>
       {
-        lanes.map((lane) => <Lane className='lane' key={lane.id} lane={lane} /> )
+        lanes.map((lane) => <LaneContainer className='lane' key={lane.id} lane={lane} /> )
       }
     </div>
   );

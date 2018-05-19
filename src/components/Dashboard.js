@@ -58,7 +58,7 @@ class Dashboard extends Component {
     }
     const units = "I";
     const laneId = this.state.lane || 1;
-    const cardId = this.createUUID();
+    const cardId = createUUID();
     const type = "weather";
     this.props.getWeatherForCity(query, units, laneId, cardId, type);
   }
@@ -70,7 +70,7 @@ class Dashboard extends Component {
       return;
     }
     const laneId = this.state.lane || 1;
-    const cardId = this.createUUID();
+    const cardId = createUUID();
     const type = "stock";
     this.props.getStockInfo(stock, laneId, cardId, type);
   }
@@ -148,8 +148,6 @@ class Dashboard extends Component {
           )
         }
 
-        <ResetButton />
-
         <div>
           <Dropdown overlay={menu}>
             <Button style={{ marginLeft: 8 }}>
@@ -162,6 +160,9 @@ class Dashboard extends Component {
             inputType={input}
             placeholder={placeholder}
           />
+
+          <ResetButton />
+
         </div>
 
         <Divider />

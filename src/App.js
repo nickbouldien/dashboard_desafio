@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 
-import Home from './components/Home';
 import About from './components/About';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
@@ -23,10 +22,7 @@ const App = () => (
         <div className='container'>
           <Switch>
             <Route exact path='/' component={Dashboard} />
-
             <Route exact path='/about' component={About} />
-            <Route exact path='/home' component={Home} />
-
             <Redirect to='/' />
           </Switch>
         </div>
