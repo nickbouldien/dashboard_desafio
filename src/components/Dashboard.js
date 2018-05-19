@@ -4,9 +4,9 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Input, Button, Dropdown, Icon, Menu, Divider } from 'antd';
 import { createUUID } from '../utils';
+import InputFormContainer from '../containers/InputFormContainer';
 import Spinner1 from '../components/Spinner1';
 import WeatherCard from '../components/WeatherCard';
-import InputForm from '../components/InputForm';
 import Lanes from '../components/Lanes';
 import ResetButton from '../components/ResetButton';
 
@@ -158,7 +158,7 @@ class Dashboard extends Component {
             </Button>
           </Dropdown>
 
-          <InputForm
+          <InputFormContainer
             submitFn={submitFuction}
             inputType={input}
             placeholder={placeholder}
