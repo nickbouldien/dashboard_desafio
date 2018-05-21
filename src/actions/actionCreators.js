@@ -60,7 +60,6 @@ export function getWeather(queryCity, units="I", laneId, cardId, type) {
         dispatch(fetchWeather(response));
         dispatch(attachToLane(laneId, cardId));
       } else {
-        // TODO nb???
         throw new Error("not a valid city");
       }
     })

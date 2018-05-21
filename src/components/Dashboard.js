@@ -26,7 +26,6 @@ class Dashboard extends Component {
     this.fetchStockData = this.fetchStockData.bind(this);
     this.fetchCurrency = this.fetchCurrency.bind(this);
     this.renderInputForm = this.renderInputForm.bind(this);
-    this.testFunction = this.testFunction.bind(this);
     this.state.submitFuction = this.state.submitFuction.bind(this);
     this.addError = this.addError.bind(this);
     this.removeError = this.removeError.bind(this);
@@ -100,13 +99,6 @@ class Dashboard extends Component {
           input: 'text',
           placeholder: 'Enter a stock symbol',
         });
-      case 'other':
-        return this.setState({
-          inputType: event.key,
-          submitFuction: this.testFunction,
-          input: 'number',
-          placeholder: '0',
-        });
       case 'currency':
         return this.setState({
           inputType: event.key,
@@ -117,10 +109,6 @@ class Dashboard extends Component {
       default:
         return;
     }
-  }
-
-  testFunction() {
-    console.log('test function called');
   }
 
   render() {
@@ -193,36 +181,3 @@ Dashboard.propTypes = {
 };
 
 export default Dashboard;
-
-
-// https://github.com/react-dnd/react-dnd/issues/373
-// export default compose(
-//   DropTarget(dragTypes, storyTarget, collect),
-//   connect(mapStateToProps)
-// )(StoryEditor);
-
-
-
-// const mapStateToProps = ({ reducer1, reducer2}) =>
-//     ({reducer1, reducer2 });
-
-// const mapDispatchToProps = dispatch => {
-//     return { listItems: () => { dispatch(listItems()) } }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: {
-//       todoActions: bindActionCreators(todoActions, dispatch),
-//       counterActions: bindActionCreators(counterActions, dispatch)
-//     }
-//   };
-// }
-
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         userPositionActions : bindActionCreators(userPositionActions, dispatch),
-//         jobTitleSkillsActions: bindActionCreators(jobTitleSkillsActions, dispatch),
-//     }
-// }
