@@ -4,18 +4,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 
-import Home from './routes/Home';
-import About from './routes/About';
-
-import Dashboard from './routes/Dashboard';
-
+import About from './components/About';
+import DashboardContainer from './containers/DashboardContainer';
 import Header from './components/Header';
-import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 
+import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 import './styles.css';
 
 const store = configureStore();
-
 
 const App = () => (
   <Provider store={store}>
@@ -24,11 +20,8 @@ const App = () => (
         <Header />
         <div className='container'>
           <Switch>
-            <Route exact path='/' component={Dashboard} />
-
+            <Route exact path='/' component={DashboardContainer} />
             <Route exact path='/about' component={About} />
-            <Route exact path='/home' component={Home} />
-
             <Redirect to='/' />
           </Switch>
         </div>

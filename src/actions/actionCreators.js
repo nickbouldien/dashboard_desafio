@@ -10,34 +10,23 @@ import {
   MOVE,
   DELETE_WEATHER,
 } from './actionTypes';
+import { WEATHER_KEY } from '../constants/itemTypes';
 
 let ROOT_URL;
 
 if (process.env.NODE_ENV === 'production') {
   ROOT_URL = '/';
-  console.log('production root url', ROOT_URL);
+  console.log('production root url: ', ROOT_URL);
 } else {
   ROOT_URL = 'http://localhost:3000/';
   console.log('dev mode root url: ', ROOT_URL);
-  console.log('weather key: ', process.env.WEATHER_KEY);
 }
-
-const WEATHER_KEY = process.env.WEATHER_KEY;
-
-// apis to integrate:
-// stock
-// weather
-// currency
-// joke?
-// event?  https://developer.ticketmaster.com/products-and-docs/apis/getting-started/
 
 /* make a default error handler (for not auth, just routine errors) */
-export function applicationError(error) {
-  return {
-    type: APP_ERROR,
-    payload: error
-  }
-}
+export const applicationError = error => ({
+  type: APP_ERROR,
+  payload: error,
+})
 
 /*
       SEARCH actions
@@ -64,14 +53,13 @@ export function getWeather(queryCity, units="I", laneId, cardId, type) {
   return (dispatch) => {
     axios.get(WEATHER_URL)
     .then((res) => {
-      const response = res && res.data && res.data.data && res.data.data[0];
+      const response = res && res.data && res.data.data && res.data.data[0]; // this is ugly...
       if (response) {
         response.id = cardId;
         response.type = type;
         dispatch(fetchWeather(response));
         dispatch(attachToLane(laneId, cardId));
       } else {
-        // TODO nb???
         throw new Error("not a valid city");
       }
     })
@@ -96,9 +84,10 @@ export function getStock(stockSymbol = 'AMZN',laneId, cardId, type) {
     axios.get(STOCK_URL)
     .then((res) => {
       if (res) {
-        res.data.id = cardId;
-        res.data.type = type;
-        dispatch(fetchStock(res.data));
+        const { data } = res;
+        data.id = cardId;
+        data.type = type;
+        dispatch(fetchStock(data));
         dispatch(attachToLane(laneId, cardId));
       }
     })
@@ -121,9 +110,10 @@ export function getCurrency(currencySymbol='USD', laneId, cardId, type) {
   return (dispatch) => {
     axios.get(CURRENCY_URL)
     .then((res) => {
-      res.data.id = cardId;
-      res.data.type = type;
-      dispatch(fetchCurrency(res.data));
+      const { data } = res;
+      data.id = cardId;
+      data.type = type;
+      dispatch(fetchCurrency(data));
       dispatch(attachToLane(laneId, cardId));
     })
     .catch((error) => {
@@ -140,14 +130,14 @@ export function attachToLane(laneId, cardId) {
   return {
     type: ATTACH_TO_LANE,
     laneId,
-    cardId
+    cardId,
   };
 }
 export function detachFromLane(laneId, cardId) {
   return {
     type: DETACH_FROM_LANE,
     laneId,
-    cardId
+    cardId,
   };
 }
 
@@ -155,21 +145,21 @@ export function move({ sourceId, targetId }) {
   return {
     type: MOVE,
     sourceId,
-    targetId
+    targetId,
   };
 }
 
 export function updateLane(updatedLane) {
   return {
     type: UPDATE_LANE,
-    ...updatedLane
+    ...updatedLane,
   };
 }
 
 export function deleteWeather(id) {
   return {
     type: DELETE_WEATHER,
-    id
+    id,
   };
 }
 

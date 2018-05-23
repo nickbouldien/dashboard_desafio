@@ -22,7 +22,7 @@ const configureStore = () => {
       weather: store.getState().weather,
       laneReducer: store.getState().laneReducer,
       stocks: store.getState().stocks,
-      currencies: store.getState().currencies
+      currencies: store.getState().currencies,
     });
   }), 1000);
 

@@ -2,47 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 
-const StockCard = (props/*, connectDragSource */) => {
+const StockCard = ({ stock, color }) => (
+  <div style={{ backgroundColor: color }}>
+    <h3>Stock Data for: {stock.symbol}, {stock.companyName}</h3>
+    <h5>Latest Time: {stock.latestTime}</h5>
 
-  return (
-
-    <div style={{ backgroundColor: props.color }}>
-      <h3>Stock Data for: {props.stock.symbol}, {props.stock.companyName}</h3>
-      <h5>Latest Time: {props.stock.latestTime}</h5>
-
-      { console.log('stockCard props', props) }
-      <ul>
-        {/* could loop through all of the comparisons, but there are about 20... */}
-        <li>Price ($): {props.stock.latestPrice}</li>
-        <li>Change ($): {props.stock.change}</li>
-        <li>marketCap ($): {props.stock.marketCap}</li>
-        <li>Avg. total volume: {props.stock.avgTotalVolume}</li>
-
-        <li>week52High: {props.stock.week52High}</li>
-        <li>week52Low: {props.stock.week52Low}</li>
-        <li>ytdChange (%): {props.stock.ytdChange}</li>
-
-        <li>Sector: {props.stock.sector}</li>
-
-      </ul>
-    </div>
-  );
-}
+    <ul>
+      {/* could loop through all of the comparisons, but there are about 20... */}
+      <li>Price ($): {stock.latestPrice}</li>
+      <li>Change ($): {stock.change}</li>
+      <li>marketCap ($): {stock.marketCap}</li>
+      <li>Avg. total volume: {stock.avgTotalVolume}</li>
+      <li>week52High: {stock.week52High}</li>
+      <li>week52Low: {stock.week52Low}</li>
+      <li>ytdChange (%): {stock.ytdChange}</li>
+      <li>Sector: {stock.sector}</li>
+    </ul>
+  </div>
+);
 
 StockCard.propTypes = {
   stock: PropTypes.object.isRequired,
-  color: PropTypes.string.isRequired
+  color: PropTypes.string.isRequired,
 };
 
 export default StockCard;
-
-// const cardSource = {
-//   beginDrag(props) {
-//     console.log('begin dragging note', props);
-//     return {};
-//   }
-// };
-//
-// export default DragSource(ItemTypes.CARD, cardSource, connect => ({
-//   connectDragSource: connect.dragSource()
-// }))(StockCard)

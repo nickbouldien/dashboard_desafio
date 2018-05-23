@@ -23,7 +23,7 @@ export const memphis_weather = {
 
 export const sf_weather = {
   id: 'mockWeather_SF',
-  city_name: 'San Fransisco',
+  city_name: 'San Francisco',
   temp: 53,
   app_temp: 48,
   precip: 0.09,

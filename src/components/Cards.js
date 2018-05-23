@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import Card from './Card';
+import CardContainer from '../containers/CardContainer';
 import { move } from '../actions/actionCreators';
 
-const Cards = ({ cards, move /*, onValueClick*/, onDelete }) => (
+const Cards = ({ cards, move, onDelete }) => (
   <div className='cards'>
     {
       cards.map((card) =>
-        <Card
+        <CardContainer
           className='card'
           id={card.id}
           key={card.id}
