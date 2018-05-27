@@ -17,16 +17,18 @@ let ROOT_URL;
 if (process.env.NODE_ENV === 'production') {
   ROOT_URL = '/';
   console.log('production root url: ', ROOT_URL);
+  console.log('weather key:', WEATHER_KEY);
 } else {
   ROOT_URL = 'http://localhost:3000/';
   console.log('dev mode root url: ', ROOT_URL);
+  console.log('weather key:', WEATHER_KEY);
 }
 
-/* make a default error handler (for not auth, just routine errors) */
+/* make a default error handler (not for auth errors, just routine application errors) */
 export const applicationError = error => ({
   type: APP_ERROR,
   payload: error,
-})
+});
 
 /*
       SEARCH actions
@@ -77,9 +79,9 @@ export function fetchStock(stockData) {
   return { type: FETCH_STOCK, payload: stockData };
 }
 
-export function getStock(stockSymbol = 'AMZN',laneId, cardId, type) {
+export function getStock(stockSymbol = 'AMZN', laneId, cardId, type) {
   const STOCK_URL = `https://api.iextrading.com/1.0/stock/${stockSymbol}/quote`;
-  console.log('getStock called: ', STOCK_URL, laneId, cardId, type);
+  
   return (dispatch) => {
     axios.get(STOCK_URL)
     .then((res) => {
@@ -126,63 +128,36 @@ export function getCurrency(currencySymbol='USD', laneId, cardId, type) {
 /*
       LANE actions
 */
-export function attachToLane(laneId, cardId) {
-  return {
-    type: ATTACH_TO_LANE,
-    laneId,
-    cardId,
-  };
-}
-export function detachFromLane(laneId, cardId) {
-  return {
-    type: DETACH_FROM_LANE,
-    laneId,
-    cardId,
-  };
-}
+export const attachToLane = (laneId, cardId) => ({
+  type: ATTACH_TO_LANE,
+  laneId,
+  cardId,
+});
 
-export function move({ sourceId, targetId }) {
-  return {
-    type: MOVE,
-    sourceId,
-    targetId,
-  };
-}
+export const detachFromLane = (laneId, cardId) => ({
+  type: DETACH_FROM_LANE,
+  laneId,
+  cardId,
+});
 
-export function updateLane(updatedLane) {
-  return {
-    type: UPDATE_LANE,
-    ...updatedLane,
-  };
-}
+export const move = ({ sourceId, targetId }) => ({
+  type: MOVE,
+  sourceId,
+  targetId,
+});
 
-export function deleteWeather(id) {
-  return {
-    type: DELETE_WEATHER,
-    id,
-  };
-}
+export const updateLane = (updateLane) => ({
+  type: UPDATE_LANE,
+  ...updatedLane,
+});
+
+export const deleteWeather = (id) => ({
+  type: DELETE_WEATHER,
+  id,
+});
 
 
-/* LANE actions more concise */
-// export const detachFromLane = (laneId, cardId) => ({
-//   type: DETACH_FROM_LANE,
-//   laneId,
-//   cardId
-// });
-
-// export const move = (laneId, cardId) => ({
-//   type: MOVE,
-//   sourceId,
-//   targetId
-// });
-
-// export const updateLane = (updatedLane) => ({
-//   type: UPDATE_LANE,
-//   ...updateLane
-// });
-
-
+/* TODO: implement auth (below) */
 
 // export function logInUser({ email, password }, history) {
 //   return function(dispatch){
@@ -250,42 +225,5 @@ export function deleteWeather(id) {
 //   return {
 //     type: AUTH_USER,
 //     payload: user
-//   }
-// }
-
-
-
-
-
-// There are three possible states for our login
-// process and we need actions for each of them
-// export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-// export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-// export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-//
-// function requestLogin(creds) {
-//   return {
-//     type: LOGIN_REQUEST,
-//     isFetching: true,
-//     isAuthenticated: false,
-//     creds
-//   }
-// }
-//
-// function receiveLogin(user) {
-//   return {
-//     type: LOGIN_SUCCESS,
-//     isFetching: false,
-//     isAuthenticated: true,
-//     id_token: user.id_token
-//   }
-// }
-//
-// function loginError(message) {
-//   return {
-//     type: LOGIN_FAILURE,
-//     isFetching: false,
-//     isAuthenticated: false,
-//     message
 //   }
 // }
