@@ -35,7 +35,6 @@ const initialState = [
 export default function lanes(state = initialState, action) {
   switch (action.type) {
     case UPDATE_LANE:
-      console.log('updating');
       return state.map(lane => {
         if (lane.id === action.id) {
           const { type, ...updatedLane } = action;
@@ -52,7 +51,6 @@ export default function lanes(state = initialState, action) {
         const index = lane.cards.indexOf(cardId);
 
         if (index >= 0) {
-          console.log('attaching');
           return {
             ...lane,
             cards:
@@ -71,7 +69,6 @@ export default function lanes(state = initialState, action) {
       });
 
     case DETACH_FROM_LANE:
-      console.log('detach');
       return state.map(lane => {
         if (lane.id === action.laneId) {
           return {
