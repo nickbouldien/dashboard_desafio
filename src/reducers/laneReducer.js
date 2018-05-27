@@ -24,7 +24,7 @@ const initialState = [
     cards: [
       "mockStock_GOOG"
     ]
-  },
+  }, // TODO: implement delete lane
   // ,{
   //   id: 'deleteLane',
   //   name: 'Delete',
@@ -39,7 +39,6 @@ export default function lanes(state = initialState, action) {
       return state.map(lane => {
         if (lane.id === action.id) {
           const { type, ...updatedLane } = action;
-          // console.log('laneReducer', Object.assign({}, lane, updatedLane));
           return Object.assign({}, lane, updatedLane);
         }
         return lane;
@@ -61,21 +60,12 @@ export default function lanes(state = initialState, action) {
                 ? lane.cards.slice(0, index).concat(lane.cards.slice(index + 1))
                 : []
           }
-          // return Object.assign({}, lane, {
-          //   cards:
-          //     lane.cards.length > 1
-          //       ? lane.cards.slice(0, index).concat(lane.cards.slice(index + 1))
-          //       : []
-          // });
         }
         if (lane.id === laneId) {
           return {
             ...lane,
             cards: [...lane.cards, cardId],
           }
-          // return Object.assign({}, lane, {
-          //   cards: [...lane.cards, cardId]
-          // });
         }
         return lane;
       });
@@ -88,18 +78,12 @@ export default function lanes(state = initialState, action) {
             ...lane,
             cards: lane.cards.filter(id => id !== action.cardId),
           }
-          // return Object.assign({}, lane, {
-          //   cards: lane.cards.filter(id => id !== action.cardId)
-          // });
         }
         return lane;
       });
 
     case MOVE:
-      console.log('move');
       const { sourceId, targetId } = action;
-      // const sourceId = action.sourceId;
-      // const targetId = action.targetId;
 
       const lanes = state;
       const sourceLane = lanes.filter(lane => lane.cards.indexOf(sourceId) >= 0 )[0];
@@ -140,12 +124,6 @@ export default function lanes(state = initialState, action) {
               .concat([sourceId])
               .concat(lane.cards.slice(targetNoteIndex))
             }
-            // return Object.assign({}, lane, {
-            //   cards: lane.cards
-            //     .slice(0, targetNoteIndex)
-            //     .concat([sourceId])
-            //     .concat(lane.cards.slice(targetNoteIndex))
-            // });
           }
           return lane;
         });

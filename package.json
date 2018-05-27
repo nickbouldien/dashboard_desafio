@@ -11,7 +11,7 @@
   },
   "scripts": {
     "analyze": "/ nope / source-map-explorer build/static/js/main.*",
-    "build": "NODE_ENV=production webpack -p",
+    "build": "node ./scripts/create-env.js && NODE_ENV=production webpack -p",
     "build:client": "cross-env NODE_ENV=production webpack --env.prod",
     "dev": "NODE_ENV=development webpack-dev-server --env.dev",
     "heroku-postbuild": "webpack -p --progress",

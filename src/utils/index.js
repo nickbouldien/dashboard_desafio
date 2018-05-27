@@ -4,6 +4,6 @@ export const createUUID = () => {
   return v4();
 }
 
-export const resetState = () => {
+export const resetLocalStorage = () => {
   window.localStorage.clear();
 }
