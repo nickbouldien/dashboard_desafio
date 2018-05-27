@@ -17,7 +17,7 @@ let ROOT_URL;
 if (process.env.NODE_ENV === 'production') {
   ROOT_URL = '/';
   console.log('production root url: ', ROOT_URL);
-  console.log('weather key:', WEATHER_KEY);
+  console.log('weather key: ', WEATHER_KEY);
 } else {
   ROOT_URL = 'http://localhost:3000/';
   console.log('dev mode root url: ', ROOT_URL);

@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-// const Dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack');
 // const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 
 const config = {
@@ -25,9 +25,9 @@ const config = {
     extensions: ['.js', '.jsx', '.json']
   },
   stats: {
-      colors: true,
-      reasons: true,
-      chunks: false
+    colors: true,
+    reasons: true,
+    chunks: false
   },
   plugins: [ // https://webpack.js.org/plugins/
     // https://webpack.js.org/guides/hot-module-replacement/
@@ -35,11 +35,11 @@ const config = {
     new webpack.NamedModulesPlugin(),
     
     // TODO: add this to hide env vars
-    // new Dotenv({ // https://www.npmjs.com/package/dotenv-webpack
-    //   path: './.env', // Path to .env file (this is the default) 
-    //   safe: false, // load .env.example (defaults to "false" which does not use dotenv-safe)
-    //   silent: false
-    // })
+    new Dotenv({ // https://www.npmjs.com/package/dotenv-webpack
+      path: './.env', // Path to .env file (this is the default) 
+      safe: false, // load .env.example (defaults to "false" which does not use dotenv-safe)
+      silent: false
+    })
     // new HtmlWebpackPlugin({ template: './public/index.html' })
 
     // new webpack.DefinePlugin({
