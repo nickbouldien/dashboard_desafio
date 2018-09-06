@@ -25,4 +25,4 @@ Just a small project to mess around with React, Redux, React DnD (Drag and Drop 
 
 
 ### Quick Demo:
-![]()
+![dashboard quick demo](https://github.com/nickbouldien/dashboard_desafio/blob/master/desafio_1.gif)
