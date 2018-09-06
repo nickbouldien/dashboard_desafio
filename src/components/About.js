@@ -26,7 +26,6 @@ const todoData = [
   "Loading / spinner",
 ];
 
-
 const About = () => (
   <div id='about-div'>
     <h1>About this project:</h1>
