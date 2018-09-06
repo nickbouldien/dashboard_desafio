@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Card } from 'antd';
-
-import { move } from '../actions/actionCreators';
 
 const RenderCard = ({ type, data }) => {
   let cardToRender;
@@ -47,12 +44,11 @@ const RenderCard = ({ type, data }) => {
     default:
       return null;
   }
-  // return null;
 }
 
 RenderCard.propTypes = {
-  type: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default RenderCard;

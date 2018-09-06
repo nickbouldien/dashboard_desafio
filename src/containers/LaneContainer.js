@@ -55,7 +55,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const LaneContainer = compose(
-  connect((state, ownProps) => mapStateToProps, mapDispatchToProps),
+  connect(() => mapStateToProps, mapDispatchToProps),
   DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()
   }))

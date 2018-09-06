@@ -2,10 +2,8 @@ import { connect } from 'react-redux';
 import { setSearchTerm } from '../actions/actionCreators';
 import InputForm from '../components/InputForm';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   searchTerm: state.inputReducer.searchTerm,
-  // submitFn: ownProps.submitFn,
-  // inputType: ownProps.inputType
 });
 
 const mapDispatchToProps = (dispatch) => ({

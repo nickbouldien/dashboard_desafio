@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Dashboard from '../components/Dashboard';
-import { getWeather, getStock, getCurrency, attachToLane } from '../actions/actionCreators';
+import { getWeather, getStock, getCurrency, attachToLane, applicationError } from '../actions/actionCreators';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   weather: state.weather,
   stockData: state.stockReducer,
   currencyData: state.currencyReducer,
-  error: state.weather.error,
+  error: state.errors,
   searchTerm: state.inputReducer.searchTerm,
   lanes: state.laneReducer,
 });

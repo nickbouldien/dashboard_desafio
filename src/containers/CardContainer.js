@@ -1,7 +1,5 @@
-import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { DragSource, DropTarget } from 'react-dnd';
-import { detachFromLane, attachToLane } from '../actions/actionCreators';
 import ItemTypes from '../constants/itemTypes';
 import Card from '../components/Card';
 
@@ -27,15 +25,6 @@ const cardTarget = {
     }
   }
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  attachToLane(targetPropsLaneId, sourceId) {
-    dispatch(attachToLane(targetPropsLaneId, sourceId));
-  },
-  detachFromLane(laneId, cardId) {
-    dispatch(detachFromLane(laneId, cardId));
-  }
-});
 
 const CardContainer = compose(
   DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({

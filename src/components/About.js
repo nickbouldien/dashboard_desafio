@@ -17,14 +17,14 @@ const apiData = [
 ];
 
 const todoData = [
-  "Implement 'Delete card' functionality ",
+  "Fix the bug where you can't add a card to an empty lane...",
   "Fix card index (location in array) bug",
+  "Implement 'Delete card' functionality ",
   "Have search/filter feature to show only cards with that data in title/body/etc.",
   "More error displaying",
   "Let user pick which lane to put new card in",
-  "Loading / spinner"
+  "Loading / spinner",
 ];
-
 
 const About = () => (
   <div id='about-div'>
@@ -36,7 +36,7 @@ const About = () => (
       size={"large"}
       bordered
       dataSource={techData}
-      renderItem={item => (<List.Item>{item}</List.Item>)}
+      renderItem={item => <List.Item>{item}</List.Item>}
     />
 
     <h3 style={{ margin: '16px 0' }}>API usage:</h3>
@@ -45,7 +45,7 @@ const About = () => (
       size={"large"}
       bordered
       dataSource={apiData}
-      renderItem={item => (<List.Item>{item}</List.Item>)}
+      renderItem={item => <List.Item>{item}</List.Item>}
     />
 
     <h3 style={{ margin: '16px 0' }}>Todo:</h3>
@@ -54,7 +54,7 @@ const About = () => (
       size={"large"}
       bordered
       dataSource={todoData}
-      renderItem={item => (<List.Item>{item}</List.Item>)}
+      renderItem={item => <List.Item>{item}</List.Item>}
     />
 
   </div>

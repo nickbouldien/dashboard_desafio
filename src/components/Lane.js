@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Cards from './Cards';
 
 class Lane extends Component {
-  deleteCard(laneId, cardId, e) {
+  deleteCard(laneId, cardId, e) { // TODO: implement
     e.stopPropagation();
   }
   render() {

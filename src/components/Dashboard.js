@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -21,6 +20,7 @@ class Dashboard extends Component {
       input: 'text',
       placeholder: 'Enter a city',
       err: '',
+      // applicationError: '',
     }
     this.fetchWeatherData = this.fetchWeatherData.bind(this);
     this.fetchStockData = this.fetchStockData.bind(this);
@@ -31,9 +31,9 @@ class Dashboard extends Component {
     this.removeError = this.removeError.bind(this);
   }
 
-  componentDidMount() {
-    // this.fetchCurrency();
-  }
+  // componentDidMount() {
+  //   this.fetchCurrency();
+  // }
 
   fetchCurrency() {
     this.removeError();
@@ -115,6 +115,10 @@ class Dashboard extends Component {
     const { weather, error, stockData, currencyData, lanes } = this.props;
     const { input, submitFuction, placeholder, err } = this.state;
 
+    console.log('error: ', error);
+    const displayError = typeof error === "object" ? error && error.newError && error.newError.message : error;
+    console.log('displayError: ', displayError);
+    
     const menu = (
       <Menu onClick={this.renderInputForm}>
         <Menu.Item key='weather'>Weather</Menu.Item>
@@ -133,7 +137,7 @@ class Dashboard extends Component {
         { error || err ? (
           <pre>
             <code style={{ color: 'red' }}>
-              { error ? error.toString() : err.toString() }
+              { error ? displayError : err.toString() }
             </code>
           </pre>
           ) : null
