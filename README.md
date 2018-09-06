@@ -24,5 +24,5 @@ Just a small project to mess around with React, Redux, React DnD (Drag and Drop 
 - more css/responsiveness
 
 
-## Quick Demo:
-![](http://i.imgur.com/60bts.gif)
+### Quick Demo:
+![]()

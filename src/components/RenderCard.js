@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'antd';
 
-const RenderCard = ({ type, data }) => {
+const RenderCard = ({ data }) => {
   let cardToRender;
 
-  switch(type.toLowerCase()) {
+  switch(data.type.toLowerCase()) {
     case 'weather':
       cardToRender = (
         <Card title={data.city_name} style={{ width: 280 }}>

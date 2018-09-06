@@ -1,7 +1,7 @@
 import { compose } from 'redux';
 import { DragSource, DropTarget } from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
-import Card from '../components/Card';
+import ItemCard from '../components/Card';
 
 const cardSource = {
   beginDrag(props) {
@@ -34,6 +34,6 @@ const CardContainer = compose(
   DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
     connectDropTarget: connect.dropTarget()
   }))
-)(Card);
+)(ItemCard);
 
 export default CardContainer;

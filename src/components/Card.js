@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RenderCard from './RenderCard';
 
-class Card extends Component {
+class ItemCard extends Component {
   render() {
     const { connectDragSource, connectDropTarget, isDragging,
       onMove, id, editing, ...props } = this.props;
@@ -15,20 +15,20 @@ class Card extends Component {
         color: isDragging ? 'blue' : 'grey',
       }}>
 
-        <RenderCard type={props.cardData.type} data={props.cardData} />
+        <RenderCard data={props.cardData} />
 
       </div>
     ));
   }
 }
 
-Card.propTypes = {
+ItemCard.propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
+  editing: PropTypes.bool,
+  id: PropTypes.string.isRequired,
   isDragging: PropTypes.bool.isRequired,
   onMove: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
-  editing: PropTypes.bool,
 };
 
-export default Card;
+export default ItemCard;
