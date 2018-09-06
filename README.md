@@ -16,7 +16,13 @@ Just a small project to mess around with React, Redux, React DnD (Drag and Drop 
 - currency converter
 - stock price
 
+
 ### TODOs: 
 - write tests
 - use flow
 - upgrade to webpack 4
+- more css/responsiveness
+
+
+## Quick Demo:
+![](http://i.imgur.com/60bts.gif)
