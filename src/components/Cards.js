@@ -23,7 +23,6 @@ const Cards = ({ cards, move, onDelete }) => (
 Cards.propTypes = {
   cards: PropTypes.array.isRequired,
   move: PropTypes.func.isRequired,
-  // onValueClick: PropTypes.func,
   onDelete: PropTypes.func,
 };
 

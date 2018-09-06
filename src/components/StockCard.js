@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DragSource } from 'react-dnd';
 
 const StockCard = ({ stock, color }) => (
   <div style={{ backgroundColor: color }}>
@@ -22,8 +21,8 @@ const StockCard = ({ stock, color }) => (
 );
 
 StockCard.propTypes = {
-  stock: PropTypes.object.isRequired,
   color: PropTypes.string.isRequired,
+  stock: PropTypes.object.isRequired,
 };
 
 export default StockCard;

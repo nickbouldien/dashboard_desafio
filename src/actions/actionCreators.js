@@ -1,14 +1,14 @@
 import axios from 'axios';
 import {
-  FETCH_WEATHER,
   APP_ERROR,
-  SET_SEARCH_TERM,
-  FETCH_STOCK,
-  FETCH_CURRENCY,
   ATTACH_TO_LANE,
-  DETACH_FROM_LANE,
-  MOVE,
   DELETE_WEATHER,
+  DETACH_FROM_LANE,
+  FETCH_WEATHER,
+  FETCH_CURRENCY,
+  FETCH_STOCK,
+  MOVE,
+  SET_SEARCH_TERM,
 } from './actionTypes';
 import { WEATHER_KEY } from '../constants/itemTypes';
 
@@ -60,7 +60,7 @@ export function getWeather(queryCity, units="I", laneId, cardId, type) {
         dispatch(fetchWeather(response));
         dispatch(attachToLane(laneId, cardId));
       } else {
-        throw new Error("not a valid city");
+        throw new Error("Could not retrieve data for that city.");
       }
     })
     .catch((error) => {
@@ -79,20 +79,22 @@ export function fetchStock(stockData) {
 
 export function getStock(stockSymbol = 'AMZN', laneId, cardId, type) {
   const STOCK_URL = `https://api.iextrading.com/1.0/stock/${stockSymbol}/quote`;
-  
   return (dispatch) => {
     axios.get(STOCK_URL)
     .then((res) => {
-      if (res) {
-        const { data } = res;
+      const { data } = res;
+      if (res && data) {
         data.id = cardId;
         data.type = type;
         dispatch(fetchStock(data));
         dispatch(attachToLane(laneId, cardId));
+      } else {
+        throw new Error();
       }
     })
     .catch((error) => {
-      dispatch(applicationError(error));
+      debugger;
+      dispatch(applicationError("Could not retrieve data for that stock."));
       console.error("Error getting stock data: ", error);  //eslint-disable-line no-console
     });
   }
@@ -111,10 +113,14 @@ export function getCurrency(currencySymbol='USD', laneId, cardId, type) {
     axios.get(CURRENCY_URL)
     .then((res) => {
       const { data } = res;
-      data.id = cardId;
-      data.type = type;
-      dispatch(fetchCurrency(data));
-      dispatch(attachToLane(laneId, cardId));
+      if (res && data) {
+        data.id = cardId;
+        data.type = type;
+        dispatch(fetchCurrency(data));
+        dispatch(attachToLane(laneId, cardId));
+      } else {
+        throw new Error("Could not retrieve data for that currency.");
+      }
     })
     .catch((error) => {
       dispatch(applicationError(error));
@@ -144,7 +150,7 @@ export const move = ({ sourceId, targetId }) => ({
   targetId,
 });
 
-export const updateLane = (updateLane) => ({
+export const updateLane = (updatedLane) => ({
   type: UPDATE_LANE,
   ...updatedLane,
 });

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Menu, Input, Button, Dropdown, Icon } from 'antd';
-import Spinner1 from '../components/Spinner1';
+import {  Button, Input } from 'antd';
 
 const InputForm = (props) => [
   <Input
@@ -12,7 +11,13 @@ const InputForm = (props) => [
     style={{ width: 200, marginRight: 10, marginLeft: 10 }}
     key={"inputform-input"}
   />,
-  <Button type='primary' onClick={props.submitFn} key={"inputform-btn"}>Submit</Button>
+  <Button
+    type='primary'
+    onClick={props.submitFn}
+    key={"inputform-btn"}
+  >
+    Submit
+  </Button>
 ];
 
 InputForm.propTypes = {
@@ -21,10 +26,6 @@ InputForm.propTypes = {
   handleSearchTermChange: PropTypes.func.isRequired,
   submitFn: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
-  // error: PropTypes.oneOfType([
-  //   PropTypes.string,
-  //   PropTypes.object
-  // ])
 };
 
 export default InputForm;

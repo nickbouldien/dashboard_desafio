@@ -16,9 +16,9 @@ const WeatherCard = ({ color, city, weather }) => (
 );
 
 WeatherCard.propTypes = {
-  weather: PropTypes.object.isRequired,
   city: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
+  weather: PropTypes.object.isRequired,
 };
 
 export default WeatherCard;
